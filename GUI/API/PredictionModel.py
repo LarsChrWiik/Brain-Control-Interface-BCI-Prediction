@@ -1,11 +1,15 @@
 from sklearn import svm
 from sklearn.naive_bayes import GaussianNB
+from sklearn.ensemble import GradientBoostingClassifier
 
 
 # Prediction model.
 class PredictionModel:
+    """
+    All of models have been setup but they may need some of there parameters changing.
 
-    """ SVM, LDA, Gaussian Naive Bayes, Gradient Boosting, Logistic Regression, """
+    """
+
 
     """ Testing Data Structures """
     test_stimulus_code = []
@@ -23,16 +27,20 @@ class PredictionModel:
     # Svm
     model_one = svm.SVC()
 
-    # LDA
-
     # Gaussian Naive Bayes
     model_two = GaussianNB()
 
     # Gradient Boosting
+    modelThree = GradientBoostingClassifier()
 
+    """ 
+    These two are a tad different, they are not models as such and will need looking into.
+    That if we don't just bin them off. 
+    """
 
     # Logistic Regression
 
+    # Lda
 
     # Training Method
     def train(self):
