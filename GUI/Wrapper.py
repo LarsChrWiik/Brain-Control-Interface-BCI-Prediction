@@ -1,13 +1,14 @@
 
 from API.BciObject import BciObject
 
-# Wrapper class for the GUI.
-# This class is used as the bridge between the GUI and the API.
+"""
+This class is used as wrapper/bridge between the GUI and the API.
+The wrapper only contain 1 instance of a BCI-object. 
+"""
 class Wrapper:
 
     bciObject = BciObject()
 
-    # Train a prediction model using raw data.
     def train(self, data_raw):
         return self.bciObject.train(data_raw)
 
