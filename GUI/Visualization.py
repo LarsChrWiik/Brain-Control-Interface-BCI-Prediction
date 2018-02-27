@@ -17,3 +17,13 @@ class Visualization:
         # Legend.
         plt.show()
 
+    # Used for testing.
+    @staticmethod
+    def visualize_2(stimulus_type):
+        # Visualize.
+        print(stimulus_type)
+        # Plot.
+        graph = plt.plot(stimulus_type)
+        # Legend.
+        plt.show()
+
