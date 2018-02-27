@@ -10,7 +10,7 @@ class Wrapper:
 
 
     def preprocess():
-        return bciObject.preprocess()
+        return self.bciObject.preprocess()
 
 
     def predict():
