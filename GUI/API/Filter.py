@@ -1,17 +1,22 @@
 
 
-
 class Filter:
 
+    @staticmethod
+    def filter(self, data_raw):
+        data = self.band_filter(data_raw)
+        data = self.laplacian_filer(data)
+        return data
+
+    @staticmethod
     # Band filter that removes the spectrum of the signal.
-    def band_filter(self):
+    def __band_filter(data):
         print("Not implemented")
+        return data
 
+    @staticmethod
     # Enhance the difference between two channels.
-    def laplacian_filer(self):
+    def __laplacian_filer(data):
         print("Not implemented")
-
-    # Creates the end result.
-    def metrics():
-        print("Not implemented")
+        return data
         
