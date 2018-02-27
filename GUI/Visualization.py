@@ -1,9 +1,12 @@
 
 import matplotlib.pyplot as plt
 
+# TODO: This file should be removed, its only for development.
+"""
+Class used for debugging, interpretation and debugging. 
+"""
 class Visualization:
 
-    # Used for testing.
     @staticmethod
     def visualize_1(singals, flashing):
         singal = []
@@ -11,19 +14,12 @@ class Visualization:
             singal.append(ts[0])
 
         # Visualize.
-        print(flashing)
-        # Plot.
         graph = plt.plot(singal)
-        # Legend.
         plt.show()
 
-    # Used for testing.
     @staticmethod
     def visualize_2(stimulus_type):
-        # Visualize.
-        print(stimulus_type)
-        # Plot.
+        # Visualize
         graph = plt.plot(stimulus_type)
-        # Legend.
         plt.show()
 
