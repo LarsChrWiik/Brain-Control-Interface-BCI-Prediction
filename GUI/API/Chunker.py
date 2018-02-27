@@ -3,6 +3,22 @@
 Contain function to divide signals into chunks
 with corresponding targets.
 This logic works for both train and test.
+
+INFO:
+***** INPUT *****
+1-dm = examples = 85.
+2-dm = chunks = 156.
+3-dm = sensors = 64
+4-dm = values for the sensor in the 300ms = 1250
+**** TARGET *****
+1-dm = examples = 5
+2-dm = chunks = 156.
+
+
+
+****************************
+***     DO NOT TOUCH     ***
+****************************
 """
 class Chucker:
 
@@ -108,6 +124,6 @@ class Chucker:
         for j in range(len(signal[0])):
             # Slice a chunk after a flashing occurs.
             # If remaining chunk is too small then discard the chunk.
-            chunk = signal[ts_index:ts_index + chunk_size][j]
+            chunk = signal[ts_index:ts_index + chunk_size]
             chunk_sensor.append(chunk)
         return chunk_sensor
