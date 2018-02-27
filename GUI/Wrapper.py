@@ -5,13 +5,13 @@ class Wrapper:
 
     bciObject = BciObject()
 
-    def train():
-        return bciObject.train()
+    def train(self):
+        return self.bciObject.train()
 
 
-    def preprocess():
+    def preprocess(self):
         return self.bciObject.preprocess()
 
 
-    def predict():
-        return bciObject.predict()
+    def predict(self):
+        return self.bciObject.predict()
