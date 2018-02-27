@@ -35,7 +35,7 @@ class PredictionModel:
 
     """ 
     These two are a tad different, they are not models as such and will need looking into.
-    That if we don't just bin them off. 
+    That's if we don't just bin them off. 
     """
 
     # Logistic Regression
