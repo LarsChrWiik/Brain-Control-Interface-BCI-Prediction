@@ -1,5 +1,5 @@
 
-from BciObject import BciObject
+from API import BciObject
 
 class Wrapper:
 
