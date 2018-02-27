@@ -7,4 +7,5 @@ Subject_A_Train.mat
 Subject_B_Test.mat
 Subject_B_Train.mat
 
+*.pyc
 
