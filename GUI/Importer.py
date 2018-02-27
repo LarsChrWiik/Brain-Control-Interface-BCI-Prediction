@@ -8,16 +8,16 @@ class Importer:
     # Usable for both training and test files.
     @staticmethod
     def mat(filename):
-        mat = scipy.io.loadmat(filename)
-        mat = dict(mat)
+        data = scipy.io.loadmat(filename)
+        data = dict(data)
         try:
-            del mat["__globals__"]
-            del mat["__header__"]
-            del mat["__version__"]
-            del mat["StimulusCode"]
+            del data["__globals__"]
+            del data["__header__"]
+            del data["__version__"]
+            del data["StimulusCode"]
 
             # Only for train.
-            del mat["TargetChar"]
+            del data["TargetChar"]
         except:
             pass
 
@@ -42,4 +42,4 @@ class Importer:
         # *** StimulusCode ***
         # Definition: which column or row flashed.
 
-        return mat
+        return data
