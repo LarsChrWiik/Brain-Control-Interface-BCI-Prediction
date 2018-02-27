@@ -19,7 +19,7 @@ class Importer:
     This function is compatible for both training and test files.
     """
     @staticmethod
-    def mat_train(filename):
+    def mat(filename):
         data = scipy.io.loadmat(filename)
         data = dict(data)
 
