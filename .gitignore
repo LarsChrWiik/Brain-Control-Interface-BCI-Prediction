@@ -2,10 +2,6 @@
 .idea/
 __pycache__/
 
-Subject_A_Test.mat
-Subject_A_Train.mat
-Subject_B_Test.mat
-Subject_B_Train.mat
-
+*.mat
 *.pyc
 
