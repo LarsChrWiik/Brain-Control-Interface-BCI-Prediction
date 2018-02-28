@@ -32,7 +32,7 @@ class PredictionModel:
     modelThree = GradientBoostingClassifier()
 
     # Logistic Regression.
-    clf_lg = SVC()
+    clf = SVC()
 
     """ 
     These two are a tad different, they are not models as such and will need looking into.
@@ -45,10 +45,10 @@ class PredictionModel:
 
     # Training Method
     def train(self, X, Y):
-        self.clf_lg.fit(X, Y)
+        self.clf.fit(X, Y)
 
     def score(self, X, Y):
-        return self.clf_lg.score(X, Y)
+        return self.clf.score(X, Y)
 
     # Validation Method
     def validation(self):
