@@ -10,7 +10,7 @@ class BciObject:
     """
     This function is used fr development only. 
     """
-    def development(self, data_raw, train_size=None):
+    def development(self, data_raw):
 
         # Pre-process the data.
         X, Y = self.preprocessor.preprocess(data_raw)
