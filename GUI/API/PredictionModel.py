@@ -54,6 +54,8 @@ class PredictionModel:
     def score(self, X, Y):
         return self.clf.score(X, Y)
 
+    # TODO: Cross validaiton.
+
     # Validation Method
     def validation(self):
         print("Not implemented")

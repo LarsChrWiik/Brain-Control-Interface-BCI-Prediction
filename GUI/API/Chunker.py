@@ -6,13 +6,13 @@ This logic works for both train and test.
 
 INFO:
 
-***** INPUT *****
+***** OUTPUT 1 *****
 1-dm = examples = 85.
 2-dm = chunks = 156.
 3-dm = sensors = 64
 4-dm = array of values in the chunk = 1250
 
-**** TARGET *****
+**** OUTPUT 2 (Target) *****
 1-dm = examples = 5
 2-dm = chunks = 156.
 

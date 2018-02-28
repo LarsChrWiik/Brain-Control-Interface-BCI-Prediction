@@ -14,12 +14,17 @@ class BciObject:
     # Under process.
     def train(self, data_raw):
 
-        # TODO: Needs to be implemented.
+        # TODO: Needs to be re-implemented.
         # Filter the input data.
         #data_filtered = Filter.filter(data_raw)
 
         # Chunk the filtered data.
         data_chunked, targets = Chucker.chunk_train(data_raw)
+
+
+        print(data_raw.keys())
+
+
 
         # TODO: just for testing.
         # Preprocess the data (Flatten)
@@ -33,6 +38,10 @@ class BciObject:
                     # Sensor
                     X.append(data_chunked[i][j][k])
                     Y.append(targets[i][j])
+
+        print(len(X))
+        print("len = " + str(len(X[0])) + ": " + str(X[0]) + ", target = " + str(Y[0]))
+        print(len(Y))
 
         # TODO: just for testing.
         # Reduce the size.
