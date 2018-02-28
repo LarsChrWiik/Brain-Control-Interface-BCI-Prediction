@@ -9,6 +9,10 @@ class Wrapper:
 
     bciObject = BciObject()
 
+    # TODO: FOR DEVELOPMENT:
+    def development(self, data_raw):
+        return self.bciObject.development(data_raw)
+
     def train(self, data_raw):
         return self.bciObject.train(data_raw)
 

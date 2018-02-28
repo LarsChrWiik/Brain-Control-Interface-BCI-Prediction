@@ -10,7 +10,7 @@ wrapper = Wrapper()
 
 # TODO: This should be triggered through the user interface GUI.
 # Train the bci-classifier using input file.
-def train(filename):
+def development(filename):
     # Import mat file.
     data_raw = Importer.mat(filename)
 
@@ -19,8 +19,8 @@ def train(filename):
         data_raw[row] = data_raw[row][:1]
 
     # Train.
-    wrapper.train(data_raw)
+    wrapper.development(data_raw)
 
 
-train(filename_train_A)
+development(filename_train_A)
 
