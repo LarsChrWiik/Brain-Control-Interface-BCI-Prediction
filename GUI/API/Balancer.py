@@ -15,8 +15,10 @@ class Balancer:
         for i in range(len(X)):
             if Y[i] == 0 and x_counter < min_size:
                 X_new.append(X[i])
+                Y_new.append(Y[i])
                 x_counter += 1
             elif Y[i] == 1 and y_counter < min_size:
+                X_new.append(X[i])
                 Y_new.append(Y[i])
                 y_counter += 1
 
