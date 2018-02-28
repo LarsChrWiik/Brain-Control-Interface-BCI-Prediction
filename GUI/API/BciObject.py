@@ -2,6 +2,7 @@
 from API.Filter import Filter
 from API.PredictionModel import PredictionModel
 from API.Chunker import Chucker
+import numpy as np
 
 class BciObject:
 
@@ -13,35 +14,41 @@ class BciObject:
     # Under process.
     def train(self, data_raw):
 
+        # TODO: Needs to be implemented.
         # Filter the input data.
         #data_filtered = Filter.filter(data_raw)
 
         # Chunk the filtered data.
         data_chunked, targets = Chucker.chunk_train(data_raw)
 
-        # Flatten
+        # TODO: just for testing.
+        # Preprocess the data (Flatten)
         X = []
         Y = []
         for i in range(len(data_chunked)):
-            example = data_chunked[i]
-            for j in range(len(example)):
-                chunk = example[j]
-                for k in range(len(chunk)):
-                    sensor = chunk[k]
-                    # Appending.
-                    X.append(sensor)
+            # Examples
+            for j in range(len(data_chunked[i])):
+                # Chunks
+                for k in range(len(data_chunked[i][j])):
+                    # Sensor
+                    X.append(data_chunked[i][j][k])
                     Y.append(targets[i][j])
 
-        # Preprocess the data.
-
-        print("len X = " + str(len(X)))
-        print("len Y = " + str(len(Y)))
+        # TODO: just for testing.
+        # Reduce the size.
+        train_size = 2000
+        X2 = X[:train_size]
+        Y2 = Y[:train_size]
+        X3 = X[-train_size:]
+        Y3 = Y[-train_size:]
 
         # Train the classifier.
-        self.prediction_model.train(X, Y)
+        self.prediction_model.train(X2, Y2)
 
-
-        print("Implementation not finished")
+        # TODO: just for testing.
+        # Calculate score from the classifier.
+        s = self.prediction_model.clf_lg.score(X3, Y3)
+        print(s)
 
     def predict(self):
         print("Not implemented")
