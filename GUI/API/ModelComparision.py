@@ -24,18 +24,18 @@ class ModelComparision:
         self.false = 0
 
     def run(self):
-        self.fit(self.training_input, self.training_target)
+        self.fit()
         prediciton = self.predict(self.testing_input)
         cv = self.cross_validation(5)
         report = self.report(prediciton, self.testing_target)
-        print("Cappa " + self.cappa())
+        print("Cappa " + str(self.cappa()))
         print(report)
         print("Cross-Validation " + cv)
         print(self.get_ratio())
 
 
     def fit(self):
-        self.model.fit(self.X, self.Y)
+        self.model.fit(self.training_input, self.training_target)
 
     def predict(self, X):
         prediction = self.model.predict(X)
