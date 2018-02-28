@@ -7,22 +7,18 @@ class ModelComparision:
 
 
     def __init__(self, classifier, X, Y, test_size):
-
         # Divide into training and test set.
         training, testing_input, target, testing_target = train_test_split(
             X,
             Y,
             test_size=test_size
         )
-
         self.X = X
         self.Y = Y
-
         self.training_input = training
         self.testing_input = testing_input
         self.training_target = target
         self.testing_target = testing_target
-
         self.model = classifier
         self.true = 0
         self.false = 0
@@ -32,15 +28,17 @@ class ModelComparision:
         prediciton = self.predict(self.testing_input)
         cv = self.cross_validation(5)
         report = self.report(prediciton, self.testing_target)
+        print("Cappa " + self.cappa())
         print(report)
-        print(cv)
+        print("Cross-Validation " + cv)
+        print(self.get_ratio())
 
 
-    def fit(self, X, Y):
-        self.model.fit(X, Y)
+    def fit(self):
+        self.model.fit(self.X, self.Y)
 
     def predict(self, X):
-        prediction =  self.model.predict(X)
+        prediction = self.model.predict(X)
         for i in prediction:
             if i == 0:
                 self.false +=1
@@ -48,14 +46,17 @@ class ModelComparision:
                 self.true +=1
         return prediction
 
-    def score(self, X, Y):
-        return self.model.score(X, Y)
+    def score(self):
+        return self.model.score(self.X, self.Y)
 
     def cross_validation(self, k_folds):
         return cross_val_score(self.model, self.X, self.Y, cv=k_folds)
 
-    def statistics(self, X, Y):
-        return cohen_kappa_score(X, Y)
+    def cappa(self):
+        return cohen_kappa_score(self.X, self.Y)
 
     def report(self, target, predictions):
         return classification_report(target, predictions)
+
+    def get_ratio(self):
+        return "Class 0 / Class 1" + self.false/self.true + ".\n"
