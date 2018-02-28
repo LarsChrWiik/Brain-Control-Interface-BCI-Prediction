@@ -15,18 +15,20 @@ class BciObject:
         # Pre-process the data.
         X, Y = self.preprocessor.preprocess(data_raw)
 
-
+        # Used for testing.
         X = self.shrink_data(X, 0.7)
         Y = self.shrink_data(Y, 0.7)
 
+
+
         # Validate performance.
-        self.prediction_model.cross_validation(X, Y)
+        self.prediction_model.cross_validate(X, Y)
 
     """
     Shrink data. 
     """
     def shrink_data(self, data, percent):
-        return data[:len(data) - percent*len(data)]
+        return data[:int(len(data) - percent*len(data))]
 
     """
     Train the prediction model. 
