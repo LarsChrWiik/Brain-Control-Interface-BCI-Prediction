@@ -7,6 +7,7 @@ from sklearn.neighbors import KNeighborsClassifier
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.neural_network import MLPClassifier
 from sklearn.model_selection import cross_val_score
+from sklearn.dummy import DummyClassifier
 
 import numpy
 
@@ -58,8 +59,6 @@ class PredictionModel:
     def cross_validate(self, X, Y):
         a = cross_val_score(self.model_one, X, Y)
         print(a)
-
-
 
     # Validation Method
     def validation(self):
