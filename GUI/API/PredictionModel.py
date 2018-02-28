@@ -1,15 +1,9 @@
 from sklearn.svm import SVC
 from sklearn.naive_bayes import GaussianNB
 from sklearn.ensemble import GradientBoostingClassifier
-from sklearn.linear_model import LogisticRegression
-from sklearn.linear_model import SGDClassifier
-from sklearn.neighbors import KNeighborsClassifier
-from sklearn.ensemble import RandomForestClassifier
-from sklearn.neural_network import MLPClassifier
 from sklearn.model_selection import cross_val_score
-from sklearn.dummy import DummyClassifier
 
-import numpy
+
 
 """
 Ensemble model. 
@@ -18,6 +12,8 @@ This is build by several models.
 class PredictionModel:
 
     """ Set up the classification models """
+
+
     # Svm
     model_one = SVC()
 
@@ -36,6 +32,21 @@ class PredictionModel:
 
     # Training Method
 
+
+
+    def fit(self, X, Y):
+
+        pass
+
+    def score(self, X, Y):
+        pass
+
+    def predict(self, X):
+        pass
+
+
+
+"""
     def train(self, X, Y):
         # X input, Y target
         print("Model One Training")
@@ -66,13 +77,4 @@ class PredictionModel:
         c = cross_val_score(self.model_three, X, Y, cv = k_folds)
         return [a, b, c]
 
-
-    # Validation Method
-    def validation(self):
-        print("Not implemented")
-
-    # Prediction Method
-    def predict(self):
-        print("Not implemented")
-
-
+"""
