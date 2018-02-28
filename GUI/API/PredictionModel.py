@@ -1,4 +1,4 @@
-from sklearn import svm
+from sklearn.svm import SVC
 from sklearn.naive_bayes import GaussianNB
 from sklearn.ensemble import GradientBoostingClassifier
 from sklearn.linear_model import LogisticRegression
@@ -23,7 +23,7 @@ class PredictionModel:
 
     """ Set up the classification models """
     # Svm
-    model_one = svm.SVC()
+    model_one = SVC()
 
     # Gaussian Naive Bayes
     model_two = GaussianNB()
@@ -32,7 +32,7 @@ class PredictionModel:
     modelThree = GradientBoostingClassifier()
 
     # Logistic Regression.
-    clf_lg = LogisticRegression()
+    clf_lg = SVC()
 
     """ 
     These two are a tad different, they are not models as such and will need looking into.
@@ -46,7 +46,9 @@ class PredictionModel:
     # Training Method
     def train(self, X, Y):
         self.clf_lg.fit(X, Y)
-        print("Not implemented")
+
+    def score(self, X, Y):
+        return self.clf_lg.score(X, Y)
 
     # Validation Method
     def validation(self):
