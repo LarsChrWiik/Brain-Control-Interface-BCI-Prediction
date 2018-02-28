@@ -42,12 +42,18 @@ class BciObject:
         X3 = X[-train_size:]
         Y3 = Y[-train_size:]
 
+        a = len([x for x in Y3 if x == 0])
+        b = len([x for x in Y3 if x == 1])
+        print("ratio = " + str(a / (a+b)))
+        print("a = " + str(a))
+        print("b = " + str(b))
+
         # Train the classifier.
         self.prediction_model.train(X2, Y2)
 
         # TODO: just for testing.
         # Calculate score from the classifier.
-        s = self.prediction_model.clf_lg.score(X3, Y3)
+        s = self.prediction_model.score(X3, Y3)
         print(s)
 
     def predict(self):

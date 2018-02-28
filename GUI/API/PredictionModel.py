@@ -32,7 +32,7 @@ class PredictionModel:
     modelThree = GradientBoostingClassifier()
 
     # Logistic Regression.
-    clf = SVC()
+    clf = GaussianNB()
 
     """ 
     These two are a tad different, they are not models as such and will need looking into.
