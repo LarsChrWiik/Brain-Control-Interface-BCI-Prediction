@@ -5,11 +5,13 @@ with corresponding targets.
 This logic works for both train and test.
 
 INFO:
+
 ***** INPUT *****
 1-dm = examples = 85.
 2-dm = chunks = 156.
 3-dm = sensors = 64
-4-dm = values for the sensor in the 300ms = 1250
+4-dm = array of values in the chunk = 1250
+
 **** TARGET *****
 1-dm = examples = 5
 2-dm = chunks = 156.
@@ -67,7 +69,7 @@ class Chucker:
             pass
 
         # Chunking all input examples.
-        chunks_all = []
+        examples_all = []
         stimulus_all = []
         for i in range(len(flashing_raw)):
             stimulus_example = None
@@ -75,27 +77,27 @@ class Chucker:
                 stimulus_example = stimulus_raw[i]
             except:
                 pass
-            chunks, stimulus = Chucker.__chunk_example(
+            chunks, stimulus = Chucker.__generate_chunks(
                 signal_raw[i],
                 flashing_raw[i],
                 Chucker.chunk_size,
                 stimulus_example
             )
-            chunks_all.append(chunks)
+            examples_all.append(chunks)
             stimulus_all.append(stimulus)
 
-        return chunks_all, stimulus_all
+        return examples_all, stimulus_all
 
     # Chunking single input example.
     @staticmethod
-    def __chunk_example(signal, flashing, chunk_size, stimulus_raw):
+    def __generate_chunks(signal, flashing, chunk_size, stimulus_raw):
         # Get the first flash.
         # 0 = no previous flash.
         old_flash = 0
         chunks = []
         stimulus_all = []
-        length = len(signal)
-        for i in range(len(signal)):
+        length = len(flashing)
+        for i in range(len(flashing)):
             flash = flashing[i]
 
             # Only record after a flashing signal occurs.
@@ -121,9 +123,8 @@ class Chucker:
     @staticmethod
     def __chunk_sensor(signal, ts_index, chunk_size):
         chunk_sensor = []
-        for j in range(len(signal[0])):
+        for i in range(len(signal)):
             # Slice a chunk after a flashing occurs.
-            # If remaining chunk is too small then discard the chunk.
-            chunk = signal[ts_index:ts_index + chunk_size]
+            chunk = signal[i][ts_index:ts_index + chunk_size]
             chunk_sensor.append(chunk)
         return chunk_sensor
