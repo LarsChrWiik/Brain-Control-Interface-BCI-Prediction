@@ -4,7 +4,7 @@ from sklearn.ensemble import GradientBoostingClassifier
 from sklearn.model_selection import cross_val_score
 
 
-X, Y, classifier
+
 """
 Ensemble model. 
 This is build by several models. 
@@ -17,6 +17,7 @@ class PredictionModel:
     # Svm
     model_one = SVC()
 
+    """
     # Gaussian Naive Bayes
     model_two = GaussianNB()
 
@@ -31,11 +32,13 @@ class PredictionModel:
     # Lda
 
     # Training Method
+    """
+
 
 
 
     def fit(self, X, Y):
-
+        self.model_one.fit(X, Y)
         pass
 
     def score(self, X, Y):
