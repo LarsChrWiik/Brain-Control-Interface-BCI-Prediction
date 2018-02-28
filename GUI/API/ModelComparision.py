@@ -59,4 +59,4 @@ class ModelComparision:
         return classification_report(target, predictions)
 
     def get_ratio(self):
-        return "Class 0 / (Class 1 + Class 0) = " + str(self.false/(self.true + self.false))
+        return "Class 0 / (Class 1 + Class 0) = " + str(self.false/(self.true + self.false)) + "\n Class 1 / (Class 1 + Class 0) = " + str(self.true/(self.true + self.false))
