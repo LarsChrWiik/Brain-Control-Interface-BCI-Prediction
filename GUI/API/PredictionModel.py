@@ -9,21 +9,6 @@ from sklearn.neural_network import MLPClassifier
 
 # Prediction model.
 class PredictionModel:
-    """
-    All of the models have been setup, but they may need some parameters changed.
-    """
-
-    """ Testing Data Structures """
-    test_stimulus_code = []
-    test_signal = []
-    test_flashing = []
-
-    """ Training Data Structures """
-    training_stimulas_code = []
-    training_stimulas_type = []
-    training_target = []
-    training_signal = []
-    training_flashing = []
 
     """ Set up the classification models """
     # Svm
@@ -33,25 +18,31 @@ class PredictionModel:
     model_two = GaussianNB()
 
     # Gradient Boosting
-    modelThree = GradientBoostingClassifier()
+    model_three = GradientBoostingClassifier()
 
     # Final classifier.
-    clf = SVC(kernel="rbf", degree=3)
-
-    """ 
-    These two are a tad different, they are not models as such and will need looking into.
-    That's if we don't just bin them off. 
-    """
+    MLP = MLPClassifier()
 
     # Logistic Regression
 
     # Lda
 
     # Training Method
+
     def train(self, X, Y):
-        self.clf.fit(X, Y)
+        # X input, Y target
+        print("Model One Training")
+        self.model_one.fit(X, Y)
+        print("Model Two Training")
+        self.model_two.fit(X, Y)
+        print("Model Three Training")
+        self.model_three.fit(X, Y)
+        print("MLP Training")
+        self.MLP.fit(X, Y)
+
 
     def score(self, X, Y):
+        # X input, Y target
         return self.clf.score(X, Y)
 
     # TODO: Cross validaiton.
