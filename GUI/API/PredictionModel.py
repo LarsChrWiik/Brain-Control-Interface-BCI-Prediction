@@ -11,7 +11,10 @@ from sklearn.dummy import DummyClassifier
 
 import numpy
 
-# Prediction model.
+"""
+Ensemble model. 
+This is build by several models. 
+"""
 class PredictionModel:
 
     """ Set up the classification models """
