@@ -21,7 +21,7 @@ class PredictionModel:
     model_three = GradientBoostingClassifier()
 
     # Final classifier.
-    MLP = MLPClassifier()
+    #MLP = MLPClassifier()
 
     # Logistic Regression
 
@@ -37,13 +37,17 @@ class PredictionModel:
         self.model_two.fit(X, Y)
         print("Model Three Training")
         self.model_three.fit(X, Y)
-        print("MLP Training")
-        self.MLP.fit(X, Y)
+    #   print("MLP Training")
+    #   self.MLP.fit(X, Y)
 
 
     def score(self, X, Y):
         # X input, Y target
-        return self.clf.score(X, Y)
+        a = self.model_one.score(X, Y)
+        b = self.model_two.score(X, Y)
+        c = self.model_three.score(X, Y)
+        ans = [a ,b, c]
+        return ans
 
     # TODO: Cross validaiton.
 
