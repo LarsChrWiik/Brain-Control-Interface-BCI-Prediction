@@ -3,21 +3,24 @@ from Importer import Importer
 from Wrapper import Wrapper
 from Visualization import Visualization
 
-filename_trian_A = "Subject_A_Train.mat"
+filename_train_A = "Subject_A_Train.mat"
 filename_test_A = "Subject_A_Test.mat"
 
 wrapper = Wrapper()
 
-def train():
+# TODO: This should be triggered through the user interface GUI.
+# Train the bci-classifier using input file.
+def train(filename):
     # Import mat file.
-    data_raw = Importer.mat(filename_trian_A)
+    data_raw = Importer.mat(filename)
 
-    Visualization.visualize_1(
-        data_raw["Signal"][4],
-        data_raw["Flashing"][0],
-    )
+    # Make data_raw smaller.
+    for row in data_raw:
+        data_raw[row] = data_raw[row][:1]
 
-    #wrapper.train(data_raw)
+    # Train.
+    wrapper.train(data_raw)
 
-train()
+
+train(filename_train_A)
 
