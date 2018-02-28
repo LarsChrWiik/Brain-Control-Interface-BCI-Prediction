@@ -2,6 +2,7 @@
 from API.Filter import Filter
 from API.Chunker import Chucker
 from API.Formater import Formater
+from API.Balancer import Balancer
 
 class Preprocessor:
 
@@ -18,6 +19,12 @@ class Preprocessor:
 
         # Format the chunked data.
         X, Y = Formater.format_chunked_data(data_chunked, targets)
+
+        # Balance the data.
+        #X, Y = Balancer.balance_equal(X, Y)
+
+        print(len(X))
+        print(len(Y))
 
         # Returns
         if not with_targets:
