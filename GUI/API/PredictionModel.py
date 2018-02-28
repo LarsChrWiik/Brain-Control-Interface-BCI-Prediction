@@ -58,3 +58,28 @@ class PredictionModel:
     # Prediction Method
     def predict(self):
         print("Not implemented")
+
+"""
+
+from sklearn.model_selection import KFold
+
+
+# Apply k-fold cross validation and return the score.
+def cross_validate(classifier, data, n_split, verbose = False):
+    kf = KFold(n_splits=n_split)
+    sum = 0.0
+    counter = 0
+    for train, test in kf.split(data):
+        if verbose:
+            print(str(round(counter * 100 / n_split, 3)) + "%")
+            counter += 1
+        train_set = np.array(data)[train]
+        test_set = np.array(data)[test]
+        clf = classifier.train(train_set)
+        sum += accuracy(clf, test_set)
+    if verbose:
+        print(str(round(counter * 100 / n_split, 1)) + "%")
+    return round(sum / n_split, 5)
+
+"""
+
