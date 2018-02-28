@@ -6,6 +6,9 @@ from sklearn.linear_model import SGDClassifier
 from sklearn.neighbors import KNeighborsClassifier
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.neural_network import MLPClassifier
+from sklearn.model_selection import cross_val_score
+
+import numpy
 
 # Prediction model.
 class PredictionModel:
@@ -46,10 +49,17 @@ class PredictionModel:
         a = self.model_one.score(X, Y)
         b = self.model_two.score(X, Y)
         c = self.model_three.score(X, Y)
-        ans = [a ,b, c]
+        ans = [a, b, c]
         return ans
 
     # TODO: Cross validaiton.
+
+    # Apply k-fold cross validation and return the score.
+    def cross_validate(self, X, Y):
+        a = cross_val_score(self.model_one, X, Y)
+        print(a)
+
+
 
     # Validation Method
     def validation(self):
@@ -59,27 +69,4 @@ class PredictionModel:
     def predict(self):
         print("Not implemented")
 
-"""
-
-from sklearn.model_selection import KFold
-
-
-# Apply k-fold cross validation and return the score.
-def cross_validate(classifier, data, n_split, verbose = False):
-    kf = KFold(n_splits=n_split)
-    sum = 0.0
-    counter = 0
-    for train, test in kf.split(data):
-        if verbose:
-            print(str(round(counter * 100 / n_split, 3)) + "%")
-            counter += 1
-        train_set = np.array(data)[train]
-        test_set = np.array(data)[test]
-        clf = classifier.train(train_set)
-        sum += accuracy(clf, test_set)
-    if verbose:
-        print(str(round(counter * 100 / n_split, 1)) + "%")
-    return round(sum / n_split, 5)
-
-"""
 
