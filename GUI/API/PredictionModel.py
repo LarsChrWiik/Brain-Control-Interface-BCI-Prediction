@@ -53,12 +53,16 @@ class PredictionModel:
         ans = [a, b, c]
         return ans
 
-    # TODO: Cross validaiton.
 
-    # Apply k-fold cross validation and return the score.
-    def cross_validate(self, X, Y):
-        a = cross_val_score(self.model_one, X, Y)
-        print(a)
+    def cross_validate(self, X, Y, k_folds = None):
+        print("Cross-validaion begun 1")
+        a = cross_val_score(self.model_one, X, Y, cv = k_folds)
+        print("Cross-validaion begun 2")
+        b = cross_val_score(self.model_two, X, Y, cv = k_folds)
+        print("Cross-validaion begun 3")
+        c = cross_val_score(self.model_three, X, Y, cv = k_folds)
+        return [a, b, c]
+
 
     # Validation Method
     def validation(self):
