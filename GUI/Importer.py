@@ -1,5 +1,6 @@
 
 import scipy.io
+import numpy as np
 
 """
 Class used to import dataset file types. 
@@ -37,5 +38,13 @@ class Importer:
             del data["TargetChar"]
         except:
             pass
+
+        # Transpose Signal. 
+        signals = np.array(data["Signal"])
+        transposed_signals = []
+        for i in range(len(signals)):
+            new = np.transpose(signals[i])
+            transposed_signals.append(new)
+        data["Signal"] = np.array(transposed_signals)
 
         return data
