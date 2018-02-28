@@ -39,7 +39,7 @@ class Importer:
         except:
             pass
 
-        # Transpose Signal. 
+        # Transpose Signal.
         signals = np.array(data["Signal"])
         transposed_signals = []
         for i in range(len(signals)):
