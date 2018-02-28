@@ -28,9 +28,9 @@ class ModelComparision:
         prediciton = self.predict(self.testing_input)
         cv = self.cross_validation(5)
         report = self.report(prediciton, self.testing_target)
-        print("Cappa " + str(self.cappa()))
+        print("Kappa " + str(self.kappa(prediciton)))
         print(report)
-        print("Cross-Validation " + cv)
+        print("Cross-Validation " + str(cv))
         print(self.get_ratio())
 
 
@@ -52,11 +52,11 @@ class ModelComparision:
     def cross_validation(self, k_folds):
         return cross_val_score(self.model, self.X, self.Y, cv=k_folds)
 
-    def cappa(self):
-        return cohen_kappa_score(self.X, self.Y)
+    def kappa(self, prediciton):
+        return cohen_kappa_score(self.testing_target, prediciton)
 
     def report(self, target, predictions):
         return classification_report(target, predictions)
 
     def get_ratio(self):
-        return "Class 0 / Class 1" + self.false/self.true + ".\n"
+        return "Class 0 / (Class 1 + Class 0) = " + str(self.false/(self.true + self.false))
