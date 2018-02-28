@@ -2,6 +2,10 @@ from sklearn.svm import SVC
 from sklearn.naive_bayes import GaussianNB
 from sklearn.ensemble import GradientBoostingClassifier
 from sklearn.linear_model import LogisticRegression
+from sklearn.linear_model import SGDClassifier
+from sklearn.neighbors import KNeighborsClassifier
+from sklearn.ensemble import RandomForestClassifier
+from sklearn.neural_network import MLPClassifier
 
 # Prediction model.
 class PredictionModel:
@@ -31,8 +35,8 @@ class PredictionModel:
     # Gradient Boosting
     modelThree = GradientBoostingClassifier()
 
-    # Logistic Regression.
-    clf = GaussianNB()
+    # Final classifier.
+    clf = SVC(kernel="rbf", degree=3)
 
     """ 
     These two are a tad different, they are not models as such and will need looking into.
