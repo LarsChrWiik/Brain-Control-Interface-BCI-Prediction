@@ -4,7 +4,7 @@ from sklearn.ensemble import GradientBoostingClassifier
 from sklearn.model_selection import cross_val_score
 
 
-
+X, Y, classifier
 """
 Ensemble model. 
 This is build by several models. 
