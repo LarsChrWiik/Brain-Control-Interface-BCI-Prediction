@@ -21,7 +21,7 @@ class Preprocessor:
         X, Y = Formater.format_chunked_data(data_chunked, targets)
 
         # Balance the data.
-        #X, Y = Balancer.balance_equal(X, Y)
+        X, Y = Balancer.balance_equal(X, Y)
 
         print(len(X))
         print(len(Y))
