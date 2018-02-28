@@ -7,7 +7,7 @@ from API.Balancer import Balancer
 class Preprocessor:
 
     @staticmethod
-    def preprocess(data_raw, with_targets=True):
+    def preprocess(data_raw, with_targets=True, shrink_percent=0):
 
         # TODO: Needs to be re-implemented. (DICT not np.array)
         # Filter the input data.
@@ -20,16 +20,24 @@ class Preprocessor:
         # Format the chunked data.
         X, Y = Formater.format_chunked_data(data_chunked, targets)
 
+        # Shrink the data size.
+        X = Preprocessor.shrink_data(X, shrink_percent)
+        Y = Preprocessor.shrink_data(Y, shrink_percent)
+
         # Balance the data.
         X, Y = Balancer.balance_equal(X, Y)
-
-        print(len(X))
-        print(len(Y))
 
         # Returns
         if not with_targets:
             return X
         return X, Y
+
+    """
+    Shrink data. 
+    """
+    @staticmethod
+    def shrink_data(data, percent):
+        return data[:int(len(data) - percent * len(data))]
 
 
 
