@@ -7,6 +7,7 @@ from sklearn.neighbors import KNeighborsClassifier
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.neural_network import MLPClassifier
 from sklearn.model_selection import cross_val_score
+from sklearn.dummy import DummyClassifier
 
 import numpy
 
@@ -61,8 +62,6 @@ class PredictionModel:
         print("Cross-validaion begun 3")
         c = cross_val_score(self.model_three, X, Y, cv = k_folds)
         return [a, b, c]
-
-
 
 
     # Validation Method
