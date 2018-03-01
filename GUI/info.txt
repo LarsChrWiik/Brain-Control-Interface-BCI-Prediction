@@ -13,7 +13,7 @@
 # Definition: letters in the alphabet.
 
 # *** StimulusType = 2D array
-# Definition: 0 or 1 meaning if the object flashed
+# Definition:
 # 85 examples.
 # 7794 time step.
 
