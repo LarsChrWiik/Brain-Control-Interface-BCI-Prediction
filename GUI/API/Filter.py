@@ -1,12 +1,13 @@
 import scipy.signal as signal
 import numpy as np
 import matplotlib.pyplot as plt
+from scipy.ndimage.filters import gaussian_laplace as gl
 from typing import Union
 
 class Filter:
 
     @staticmethod
-    def filter(data_raw: np.ndarray) -> np.ndarray:
+    def filter(data_raw: np.ndarray, sigma) -> np.ndarray:
         """Band Filter and Laplace Filter
         This is the only public function please call all private functions from here.
         You can call Notch & Band pass filters with selectable bandwidth.
@@ -21,7 +22,7 @@ class Filter:
         """
         assert type(data_raw) == np.ndarray and data_raw.shape[0] > 0 and len(data_raw.shape) == 2
         data = Filter.__band_filter(data_raw, lowFreq=10, highFreq=12)
-        data = Filter.__laplacian_filter(data) #Need to write test for this once its complete
+        #data = Filter.__laplacian_filter(data,sigma) #Need to write test for this once its complete
         assert data == type(np.ndarray) and data.shape[0] > 0# relook after laplacian written
         return data
 
@@ -86,8 +87,84 @@ class Filter:
 
     @staticmethod
     # Enhance the difference between two channels.
-    def __laplacian_filter(data):
-        print("Not implemented")
+    def __laplacian_filter(data,sigma):
+
+        #Initialise a matrix with only zeroes to represent the positions of sensors
+        #An additional column and row is added to each side
+        matrix = np.zeros(13, 12)
+        data = data[0]  # Needs a for loop through the examples and ? additional dimension
+
+        #Map the values to their respective locations to the previously created zero matrix
+
+        matrix[1][4] = data[22]
+        matrix[1][6] = data[23]
+        matrix[1][8] = data[24]
+        matrix[2][3] = data[25]
+        matrix[2][4] = data[26]
+        matrix[2][6] = data[27]
+        matrix[2][8] = data[28]
+        matrix[2][9] = data[29]
+        matrix[3][2:11] = data[30:39]
+        matrix[4][3:10] = data[1:8]
+        matrix[4][2] = data[39]
+        matrix[4][10] = data[40]
+        matrix[5][1] = data[43]
+        matrix[5][2] = data[41]
+        matrix[5][3:10] = data[8:15]
+        matrix[5][10] = data[42]
+        matrix[5][11] = data[44]
+        matrix[6][2] = data [45]
+        matrix[6][3:10] = data[15:22]
+        matrix[6][10] = data [46]
+        matrix[7][2:11] = data[47:56]
+        matrix[8][3] = data[56]
+        matrix[8][4] = data[57]
+        matrix[8][6] = data[58]
+        matrix[8][8] = data[59]
+        matrix[8][9] = data[60]
+        matrix[9][4] = data[61]
+        matrix[9][6] = data[62]
+        matrix[9][8] = data[63]
+        matrix[10][6]= data[64]
+
+        #filter the matrix using a laplacian gaussian filter
+
+        matrix = gl(matrix, sigma, output=None, mode='reflect', cval=0.0)
+
+        #Save the values of the matrix to the previous format (chanal_id)
+
+        data[22] = matrix[1][4]
+        data[23] = matrix[1][6]
+        data[24] = matrix[1][8]
+        data[25] = matrix[2][3]
+        data[26] = matrix[2][4]
+        data[27] = matrix[2][6]
+        data[28] = matrix[2][8]
+        data[29] = matrix[2][9]
+        data[30:39] = matrix[3][2:11]
+        data[1:8] = matrix[4][3:10]
+        data[39] = matrix[4][2]
+        data[40] = matrix[4][10]
+        data[43] = matrix[5][1]
+        data[41] = matrix[5][2]
+        data[8:15] = matrix[5][3:10]
+        data[42] = matrix[5][10]
+        data[44] = matrix[5][11]
+        data [45] = matrix[6][2]
+        data[15:22] = matrix[6][3:10]
+        data [46] = matrix[6][10]
+        data[47:56] = matrix[7][2:11]
+        data[56] = matrix[8][3]
+        data[57] = matrix[8][4]
+        data[58] = matrix[8][6]
+        data[59] = matrix[8][8]
+        data[60] = matrix[8][9]
+        data[61] = matrix[9][4]
+        data[62] = matrix[9][6]
+        data[63] = matrix[9][8]
+        data[64] = matrix[10][6]
+
+
         return data
 
 if __name__ == "__main__":
