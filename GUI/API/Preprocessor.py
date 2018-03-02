@@ -12,10 +12,11 @@ class Preprocessor:
         # TODO: Needs to be re-implemented. (DICT not np.array)
         # Filter the input data.
         data_filtered = Filter.filter(data_raw)
+        print(type(data_filtered))
 
         # TODO: Use data_filtered when filter is working.
         # Chunk the filtered data.
-        data_chunked, targets = Chucker.chunk_train(data_raw)
+        data_chunked, targets = Chucker.chunk_train(data_filtered)
 
         # Format the chunked data.
         X, Y = Formater.format_chunked_data(data_chunked, targets)
