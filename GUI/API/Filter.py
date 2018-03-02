@@ -1,6 +1,6 @@
 import scipy.signal as signal
 import numpy as np
-import matplotlib.pyplot as plt
+from GUI.Visualization import Visualization
 from scipy.ndimage.filters import gaussian_laplace as gl
 from typing import Union
 
@@ -71,6 +71,7 @@ class Filter:
         for index, eegChannel in enumerate(y[0]):#the extra [0] is becuase signal.lfilter() puts it in a 1D array. Grrr
             timestep.append(eegChannel)
         output['Signal'] = timestep
+        Visualization.channelGraph(y[0][0])
         return output #output is 2D 64xTimeSamples
 
 
@@ -96,7 +97,7 @@ class Filter:
         #data = data[0]  # Needs a for loop through the examples and ? additional dimension
 
         #Map the values to their respective locations to the previously created zero matrix
-
+        data = data['Signal']
         matrix[1][4] = data[21][0]
         matrix[1][6] = data[22][0]
         matrix[1][8] = data[23][0]
@@ -105,19 +106,19 @@ class Filter:
         matrix[2][6] = data[26][0]
         matrix[2][8] = data[27][0]
         matrix[2][9] = data[28][0]
-        matrix[3][2:11] = data[29:38][:][:,0]
-        matrix[4][3:10] = data[0:7][:][:,0]
+        matrix[3][2:11] = np.array(data[29:38])[:,0]
+        matrix[4][3:10] = np.array(data[0:7])[:,0]
         matrix[4][2] = data[38][0]
         matrix[4][10] = data[39][0]
         matrix[5][1] = data[42][0]
         matrix[5][2] = data[40][0]
-        matrix[5][3:10] = data[7:14][:][:,0]
+        matrix[5][3:10] = np.array(data[7:14])[:,0]
         matrix[5][10] = data[42][0]
         matrix[5][11] = data[43][0]
         matrix[6][2] = data [44][0]
-        matrix[6][3:10] = data[14:21][:][:,0]
-        matrix[6][10] = data [45][0]
-        matrix[7][2:11] = data[46:55][:][:,0]
+        matrix[6][3:10] = np.array(data[14:21])[:,0]
+        matrix[6][10] = data[45][0]
+        matrix[7][2:11] = np.array(data[46:55])[:,0]
         matrix[8][3] = data[55][0]
         matrix[8][4] = data[56][0]
         matrix[8][6] = data[57][0]
@@ -142,19 +143,19 @@ class Filter:
         data[26] = matrix[2][6]
         data[27] = matrix[2][8]
         data[28] = matrix[2][9]
-        data[29:38][:][:,0] = matrix[3][2:11]
-        data[0:7][:][:,0] = matrix[4][3:10]
+        np.array(data[29:38])[:,0] = matrix[3][2:11]
+        np.array(data[0:7])[:,0] = matrix[4][3:10]
         data[38] = matrix[4][2]
         data[39] = matrix[4][10]
         data[42] = matrix[5][1]
         data[40] = matrix[5][2]
-        data[7:14][:][:,0] = matrix[5][3:10]
+        np.array(data[7:14])[:,0] = matrix[5][3:10]
         data[41] = matrix[5][10]
         data[43] = matrix[5][11]
         data[44] = matrix[6][2]
-        data[14:21][:][:,0] = matrix[6][3:10]
+        np.array(data[14:21])[:,0] = matrix[6][3:10]
         data[45] = matrix[6][10]
-        data[46:55][:][:,0] = matrix[7][2:11]
+        np.array(data[46:55])[:,0] = matrix[7][2:11]
         data[55] = matrix[8][3]
         data[56] = matrix[8][4]
         data[57] = matrix[8][6]
@@ -164,10 +165,8 @@ class Filter:
         data[61] = matrix[9][6]
         data[62] = matrix[9][8]
         data[63] = matrix[10][6]
+        Visualization.channelGraph(data[0])
         return data
 
 if __name__ == "__main__":
-    from Importer import Importer
-    data = Importer.mat("Subject_A_Train.mat")
-
-    filterData = Filter.filter(data['Signal'][0][:][:], 1)
+    pass
