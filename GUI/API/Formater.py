@@ -6,7 +6,7 @@ class Formater:
     Usable for both training and test data, which is chunked.
     """
     @staticmethod
-    def format_chunked_data(data_chunked: dict, targets=None):
+    def format_chunked_data(data_chunked, targets=None):
         X = []
         Y = []
         for i in range(len(data_chunked)):
@@ -21,3 +21,26 @@ class Formater:
         if targets is None:
             return X
         return X, Y
+
+    """
+    Flatten the data.
+    Usable for both training and test data.
+    """
+    @staticmethod
+    def format(X, Y):
+
+        X_new = []
+        Y_new = []
+        for i in range(len(X)):
+            # Examples
+            for j in range(len(X[i])):
+                # Chunks
+                for k in range(len(X[i][j])):
+                    # Sensor
+                    X_new.append(X[i][j][k])
+                    if Y is not None:
+                        Y_new.append(Y[i][j])
+        if Y is None:
+            return X_new
+        return X_new, Y_new
+
