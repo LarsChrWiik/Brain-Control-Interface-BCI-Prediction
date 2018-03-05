@@ -4,6 +4,9 @@ from API.Chunker import Chucker
 from API.Formater import Formater
 from API.Balancer import Balancer
 from API.PLV import PLV
+from API.PLI import PLI
+from API.Phase import Phase
+from sklearn.preprocessing import MinMaxScaler
 
 class Preprocessor:
 
@@ -12,7 +15,7 @@ class Preprocessor:
 
         # TODO: Needs to be re-implemented. (DICT not np.array)
         # Filter the input data.
-        data_filtered = Filter.filter(data_raw)
+        #data_filtered = Filter.filter(data_raw)
         # print(type(data_filtered))
 
         # TODO: Use data_filtered when filter is working.
@@ -26,13 +29,22 @@ class Preprocessor:
         # Balance the data.
         X, Y = Balancer.balance_equal_2(X, Y)
 
-        # TODO: Add metrics.
-        print("before")
-        X = PLV.apply(X)
-        print("after")
+        # Applying metric (Phase)
+        #X = Phase.apply(X)
+
+        # Applying metric (PLV)
+        #X = PLV.apply(X)
+
+        # Applying metric (PLI)
+        X = PLI.apply(X)
 
         # Format the chunked data.
         X, Y = Formater.format(X, Y)
+
+        # Normalization between 0 and 1.
+        scaler = MinMaxScaler()
+        scaler.fit(X)
+        X = scaler.transform(X)
 
         # Returns
         if not with_targets:
