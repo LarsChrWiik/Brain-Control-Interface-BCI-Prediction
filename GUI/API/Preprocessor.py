@@ -15,12 +15,11 @@ class Preprocessor:
 
         # TODO: Needs to be re-implemented. (DICT not np.array)
         # Filter the input data.
-        #data_filtered = Filter.filter(data_raw)
-        # print(type(data_filtered))
+        data_filtered = Filter.filter(data_raw)
 
         # TODO: Use data_filtered when filter is working.
         # Chunk the filtered data.
-        X, Y = Chucker.chunk_train(data_raw)
+        X, Y = Chucker.chunk_train(data_filtered)
 
         # Shrink the data size.
         X = Preprocessor.shrink_data_2(X, shrink_percent)
