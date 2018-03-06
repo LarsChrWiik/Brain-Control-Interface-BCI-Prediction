@@ -48,15 +48,8 @@ class BciObject:
         return prediction
 
     """
-    Extract statistics from the model building process. 
+    Clear the statistical history. 
     """
-    def get_statistics(self):
-        # Raw_data of singal
-        # Filtered_data of signal
-        # Chunked_data
-        # Metric_used
-        return self
-
     def clear_statistics(self):
         self.preprocessor.clear_statistics()
         self.prediction_model.clear_statistics()
