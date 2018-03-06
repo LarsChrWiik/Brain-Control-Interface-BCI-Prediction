@@ -13,21 +13,33 @@ from API.Phase import Phase
 
 class Preprocessor:
 
-    @staticmethod
-    def preprocess(data_raw, with_targets=True, shrink_percent=0):
+    """
+    Pre-process raw data.
+    Usable for both labelled and non-labelled data.
 
+    X = Input.
+    Y = Targets.
+    """
+    @staticmethod
+    def preprocess(
+            data_raw,
+            with_targets=True,
+            shrink_percent=0,
+            should_balance=True
+    ):
         # Filter the input data.
         data_filtered = Filter.filter(data_raw)
-        
+
         # Chunk the filtered data.
         X, Y = Chucker.chunk_train(data_filtered)
 
-        # Shrink the data size.
+        # Shrink the data by a given percent.
         X = Shrinker.shrink_data_with_examples(X, shrink_percent)
         Y = Shrinker.shrink_data_with_examples(Y, shrink_percent)
 
-        # Balance the data.
-        X, Y = Balancer.balance_equal_2(X, Y)
+        # Balance the data according to targets (0 or 1).
+        if with_targets and should_balance:
+            X, Y = Balancer.balance_equal_with_examples(X, Y)
 
         # Applying metric (Phase)
         #X = Phase.apply(X)
@@ -38,15 +50,14 @@ class Preprocessor:
         # Applying metric (PLI)
         X = PLI.apply(X)
 
-        # Format the chunked data.
+        # Format the data into a usable format for classifiers.
         X, Y = Formater.format(X, Y)
 
-        # Normalization between 0 and 1.
+        # Normalize the data. (Between 0 and 1)
         scaler = MinMaxScaler()
         scaler.fit(X)
         X = scaler.transform(X)
 
-        # Returns
-        if not with_targets:
-            return X
-        return X, Y
+        if with_targets:
+            return X, Y
+        return X
