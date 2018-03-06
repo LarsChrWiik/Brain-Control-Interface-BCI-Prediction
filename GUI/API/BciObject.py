@@ -8,6 +8,7 @@ from API.Randomizer import Randomizer
 class BciObject:
 
     prediction_model = PredictionModel()
+    preprocessor = Preprocessor()
 
     """
     Train the prediction model. 
@@ -18,8 +19,10 @@ class BciObject:
             shrink_percent=0,
             should_balance=True
     ):
+        self.clear_statistics()
+
         # Pre-process the data.
-        X, Y = Preprocessor.preprocess(
+        X, Y = self.preprocessor.preprocess(
             data_raw,
             with_targets,
             shrink_percent,
@@ -37,7 +40,7 @@ class BciObject:
     """
     def predict(self, data_raw):
         # Pre-process the data.
-        X = Preprocessor.preprocess(data_raw)
+        X = self.preprocessor.preprocess(data_raw)
 
         # Make prediction.
         prediction = self.prediction_model.predict(X)
@@ -48,8 +51,15 @@ class BciObject:
     Extract statistics from the model building process. 
     """
     def get_statistics(self):
-        print("Not implemented")
-        pass
+        # Raw_data of singal
+        # Filtered_data of signal
+        # Chunked_data
+        # Metric_used
+        return self
+
+    def clear_statistics(self):
+        self.preprocessor.clear_statistics()
+        self.prediction_model.clear_statistics()
 
     # TODO: Maybe move this function else-where.
     """
@@ -57,7 +67,7 @@ class BciObject:
     """
     def compare_models(self, data_raw):
         # Pre-process the data.
-        X, Y = Preprocessor.preprocess(
+        X, Y = self.preprocessor.preprocess(
             data_raw,
             shrink_percent=0.7
         )

@@ -2,7 +2,7 @@ from sklearn.svm import SVC
 from sklearn.naive_bayes import GaussianNB
 from sklearn.ensemble import GradientBoostingClassifier
 from sklearn.model_selection import cross_val_score
-
+from API.Statistics.PredictionModelStatistics import PredictionModelStatistics
 
 
 """
@@ -10,6 +10,8 @@ Ensemble model.
 This is build by several models. 
 """
 class PredictionModel:
+
+    model_statistics = PredictionModelStatistics()
 
     """ Set up the classification models """
 
@@ -46,6 +48,9 @@ class PredictionModel:
 
     def predict(self, X):
         pass
+
+    def clear_statistics(self):
+        self.model_statistics.clear_statistics()
 
 
 
