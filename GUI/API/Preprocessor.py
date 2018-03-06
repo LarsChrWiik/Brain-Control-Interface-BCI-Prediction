@@ -11,6 +11,9 @@ from API.PLI import PLI
 from API.Phase import Phase
 
 
+"""
+This class contain the logic behind the pre-processing step of BCI. 
+"""
 class Preprocessor:
 
     """
