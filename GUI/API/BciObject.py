@@ -1,7 +1,7 @@
 
-from API.PredictionModel import PredictionModel
+from API.Model.PredictionModel import PredictionModel
 from API.Preprocessing.Preprocessor import Preprocessor
-from API.ModelBenchmark import ModelBenchmark
+from API.Model.ModelBenchmark import ModelBenchmark
 from API.Randomizer import Randomizer
 
 # TODO: Remove after ModelComparison has been implemented.
