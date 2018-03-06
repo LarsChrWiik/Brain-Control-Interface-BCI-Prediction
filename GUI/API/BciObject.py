@@ -1,7 +1,7 @@
 
 from API.PredictionModel import PredictionModel
 from API.Preprocessing.Preprocessor import Preprocessor
-from API.ModelComparision import ModelComparision
+from API.ModelBenchmark import ModelBenchmark
 from API.Randomizer import Randomizer
 
 # TODO: Remove after ModelComparison has been implemented.
@@ -69,7 +69,7 @@ class BciObject:
         # Initialize predition model.
         clf = SVC()
 
-        model = ModelComparision(clf, X, Y, test_size=0.3)
+        model = ModelBenchmark(clf, X, Y, test_size=0.3)
         model.run()
 
         # TODO: fix.
