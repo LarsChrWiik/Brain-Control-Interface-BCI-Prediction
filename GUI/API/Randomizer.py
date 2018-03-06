@@ -9,7 +9,7 @@ class Randomizer:
 
     @staticmethod
     def shuffle_two_lists(list1, list2):
-        combined = list(zip(list1, list2))
-        random.shuffle(combined)
-        list1[:], list2[:] = zip(*combined)
-        return list1, list2
+        z = list(zip(list1, list2))
+        random.shuffle(z)
+        a, b = zip(*z)
+        return a, b

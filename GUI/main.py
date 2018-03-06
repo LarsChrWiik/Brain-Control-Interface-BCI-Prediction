@@ -16,7 +16,7 @@ def development(filename):
 
     # Make data_raw smaller.
     for row in data_raw:
-        data_raw[row] = data_raw[row][:10]
+        data_raw[row] = data_raw[row][:1]
 
     # Train.
     wrapper.development(data_raw)
