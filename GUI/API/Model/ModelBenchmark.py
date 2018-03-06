@@ -1,6 +1,9 @@
 from sklearn.model_selection import cross_val_score
 from sklearn.metrics import cohen_kappa_score, classification_report
 from sklearn.model_selection import train_test_split
+import warnings
+warnings.filterwarnings("ignore")
+
 
 class ModelBenchmark:
 
