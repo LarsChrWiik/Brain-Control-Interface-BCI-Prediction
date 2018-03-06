@@ -5,3 +5,5 @@ __pycache__/
 *.mat
 *.pyc
 
+test_harness.py
+
