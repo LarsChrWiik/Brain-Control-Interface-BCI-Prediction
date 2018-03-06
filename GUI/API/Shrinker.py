@@ -1,5 +1,5 @@
 
-# TODO: Might want to randomize what data to remain.
+# TODO: Might want to randomize/shuffle data.
 """
 Class containing functions to shrink data.
 """

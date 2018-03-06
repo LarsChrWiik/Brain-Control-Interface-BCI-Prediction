@@ -11,7 +11,7 @@ class Wrapper:
 
     # TODO: FOR DEVELOPMENT:
     def development(self, data_raw):
-        return self.bciObject.development(data_raw)
+        return self.bciObject.compare_models(data_raw)
 
     def train(self, data_raw):
         return self.bciObject.train(data_raw)

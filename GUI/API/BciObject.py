@@ -1,11 +1,8 @@
 
 from API.Model.PredictionModel import PredictionModel
 from API.Preprocessing.Preprocessor import Preprocessor
-from API.Model.ModelBenchmark import ModelBenchmark
+from API.Model.ModelComparison import ModelComparison
 from API.Randomizer import Randomizer
-
-# TODO: Remove after ModelComparison has been implemented.
-from sklearn.svm import SVC
 
 
 class BciObject:
@@ -54,41 +51,19 @@ class BciObject:
         print("Not implemented")
         pass
 
-    # TODO: This function is only for development.
-    # TODO: (Remove when project is finished).
+    # TODO: Maybe move this function else-where.
     """
-    This function is used fr development only. 
+    Compare performance of different models. 
     """
-    def development(self, data_raw):
+    def compare_models(self, data_raw):
         # Pre-process the data.
         X, Y = Preprocessor.preprocess(
             data_raw,
             shrink_percent=0.7
         )
 
-        # Initialize predition model.
-        clf = SVC()
+        # Randomize the data.
+        X, Y = Randomizer.shuffle_two_lists(X, Y)
 
-        model = ModelBenchmark(clf, X, Y, test_size=0.3)
-        model.run()
-
-        # TODO: fix.
-        """
-        # Validate performance.
-        score = cross_val_score(clf, X, Y, cv=3)
-        print("Cross_val = " + str(score))
-
-        # Fit the model.
-        clf.fit(X_train, y_train)
-
-        # Predict test set.
-        predictions = clf.predict(X_test)
-
-        print("predictions = " + str(predictions))
-
-        # Precision.
-        print("Precision = " + str(average_precision_score(y_test, predictions)))
-
-        # Recall.
-        print("Recall = " + str(recall_score(y_test, predictions)))
-        """
+        # Compare models.
+        ModelComparison.start(X, Y)

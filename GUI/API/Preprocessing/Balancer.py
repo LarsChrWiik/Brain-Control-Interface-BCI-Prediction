@@ -1,7 +1,7 @@
 
-# TODO: Might want to randomize the selection of examples.
+# TODO: Might want to shuffle chunks the selection of examples.
 """
-Class containing logic for balancing data according to targets. 
+Class containing logic for balancing data according to targets.
 """
 class Balancer:
 
