@@ -1,4 +1,7 @@
 
+"""
+Statistical data collection for the prediction model.
+"""
 class PredictionModelStatistics:
 
     # TODO: Add what is needed.
@@ -8,5 +11,8 @@ class PredictionModelStatistics:
     f1 = None
     support = None
 
+    """
+    Clear the statistical history. 
+    """
     def clear_statistics(self):
         pass

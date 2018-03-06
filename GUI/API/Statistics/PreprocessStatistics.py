@@ -1,6 +1,9 @@
 
 from API.Randomizer import Randomizer
 
+"""
+Statistical data collection for the pre-processing step. 
+"""
 class PreprocessStatistics:
 
     raw_signal = None
@@ -10,6 +13,9 @@ class PreprocessStatistics:
 
     number_of_chunks = 10
 
+    """
+    Updating the pre-processing statistics. 
+    """
     def fill(self, raw_data, filtered_data, chunked_X, chunked_Y):
         # Choosing statistics.
 
@@ -22,6 +28,9 @@ class PreprocessStatistics:
         self.chunked_X = chunked_X[:self.number_of_chunks]
         self.chunked_Y = chunked_Y[:self.number_of_chunks]
 
+    """
+    Clear the statistical history. 
+    """
     def clear_statistics(self):
         self.raw_signal = None
         self.filtered_signal = None
