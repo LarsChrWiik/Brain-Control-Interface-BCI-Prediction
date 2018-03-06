@@ -1,12 +1,15 @@
 
+from sklearn.preprocessing import MinMaxScaler
+
 from API.Filter import Filter
 from API.Chunker import Chucker
 from API.Formater import Formater
 from API.Balancer import Balancer
+from API.Shrinker import Shrinker
 from API.PLV import PLV
 from API.PLI import PLI
 from API.Phase import Phase
-from sklearn.preprocessing import MinMaxScaler
+
 
 class Preprocessor:
 
@@ -22,8 +25,8 @@ class Preprocessor:
         X, Y = Chucker.chunk_train(data_filtered)
 
         # Shrink the data size.
-        X = Preprocessor.shrink_data_2(X, shrink_percent)
-        Y = Preprocessor.shrink_data_2(Y, shrink_percent)
+        X = Shrinker.shrink_data_with_examples(X, shrink_percent)
+        Y = Shrinker.shrink_data_with_examples(Y, shrink_percent)
 
         # Balance the data.
         X, Y = Balancer.balance_equal_2(X, Y)
@@ -49,20 +52,3 @@ class Preprocessor:
         if not with_targets:
             return X
         return X, Y
-
-    """
-    Shrink data. 
-    """
-    @staticmethod
-    def shrink_data(data, percent):
-        return data[:int(len(data) - percent * len(data))]
-
-    """
-    Shrink data. 
-    """
-    @staticmethod
-    def shrink_data_2(data, percent):
-        return [x[:int(len(x) - percent * len(x))] for x in data]
-
-
-
