@@ -1,4 +1,8 @@
 
+# TODO: Might want to randomize the selection of examples.
+"""
+Class containing logic for balancing data according to targets. 
+"""
 class Balancer:
 
     """

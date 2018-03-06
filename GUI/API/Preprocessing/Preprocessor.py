@@ -2,14 +2,11 @@
 from sklearn.preprocessing import MinMaxScaler
 
 from API.Filter import Filter
-from API.Chunker import Chucker
-from API.Formater import Formater
-from API.Balancer import Balancer
+from API.Preprocessing.Chunker import Chucker
+from API.Preprocessing.Formater import Formater
+from API.Preprocessing.Balancer import Balancer
 from API.Shrinker import Shrinker
-from API.PLV import PLV
-from API.PLI import PLI
-from API.Phase import Phase
-
+from API.Preprocessing.PLI import PLI
 
 """
 This class contain the logic behind the pre-processing step of BCI. 
