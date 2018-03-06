@@ -16,11 +16,9 @@ class Preprocessor:
     @staticmethod
     def preprocess(data_raw, with_targets=True, shrink_percent=0):
 
-        # TODO: Needs to be re-implemented. (DICT not np.array)
         # Filter the input data.
         data_filtered = Filter.filter(data_raw)
-
-        # TODO: Use data_filtered when filter is working.
+        
         # Chunk the filtered data.
         X, Y = Chucker.chunk_train(data_filtered)
 
