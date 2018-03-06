@@ -2,31 +2,20 @@
 """
 Contain function to divide signals into chunks
 with corresponding targets.
-This logic works for both train and test.
 
-INFO:
+Works for both labelled and non-labelled data.
 
-***** OUTPUT 1 *****
-1-dm = examples = 85.
+***** FIRST OUTPUT (X) *****
+1-dm = examples
 2-dm = chunks = 156.
 3-dm = sensors = 64
 4-dm = array of values in the chunk = 1250
 
-**** OUTPUT 2 (Target) *****
-1-dm = examples = 5
+**** SECOND OUTPUT (Y) *****
+1-dm = examples
 2-dm = chunks = 156.
-
-
-
-****************************
-***     DO NOT TOUCH     ***
-****************************
 """
 class Chucker:
-
-
-    # *** Globals ***
-
 
     # Define chunk size.
     sampling_rate = 240
@@ -34,9 +23,6 @@ class Chucker:
     p300_time = 300
     timestep_ms_ratio = ms / sampling_rate
     chunk_size = int(p300_time * timestep_ms_ratio)
-
-
-    # *** Public functions ***
 
 
     # Chunk for train input.
@@ -48,9 +34,6 @@ class Chucker:
     @staticmethod
     def chunk_test(data: dict):
         return Chucker.__chunk(data)[0]
-
-
-    # *** Private functions ***
 
 
     """
