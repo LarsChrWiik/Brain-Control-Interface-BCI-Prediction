@@ -4,6 +4,7 @@ from GUI.Visualization import Visualization
 from scipy.ndimage.filters import gaussian_laplace as gl
 from typing import Union
 
+#TODO: Move to Preprocessing folder. 
 class Filter:
 
     @staticmethod
