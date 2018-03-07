@@ -1,187 +1,164 @@
-# -*- coding: utf-8 -*-
+import sys
+from PyQt4 import QtGui, QtCore
 
-# Form implementation generated from reading ui file 'test.ui'
-#
-# Created by: PyQt4 UI code generator 4.11.4
-#
-# WARNING! All changes made in this file will be lost!
+# main window inherit from main window
+class Window(QtGui.QMainWindow):
 
-from PyQt4 import QtCore, QtGui
-from Wrapper import Wrapper
-
-wrapper = Wrapper()
-
-try:
-    _fromUtf8 = QtCore.QString.fromUtf8
-except AttributeError:
-    def _fromUtf8(s):
-        return s
-
-try:
-    _encoding = QtGui.QApplication.UnicodeUTF8
-    def _translate(context, text, disambig):
-        return QtGui.QApplication.translate(context, text, disambig, _encoding)
-except AttributeError:
-    def _translate(context, text, disambig):
-        return QtGui.QApplication.translate(context, text, disambig)
-
-class Ui_MainWindow(object):
-    def setupUi(self, MainWindow):
-        MainWindow.setObjectName(_fromUtf8("MainWindow"))
-        MainWindow.resize(643, 449)
-        self.centralwidget = QtGui.QWidget(MainWindow)
-        self.centralwidget.setObjectName(_fromUtf8("centralwidget"))
-        self.pushButton = QtGui.QPushButton(self.centralwidget)
-        self.pushButton.setGeometry(QtCore.QRect(420, 70, 191, 41))
-        self.pushButton.setObjectName(_fromUtf8("pushButton"))
-        self.label = QtGui.QLabel(self.centralwidget)
-        self.label.setGeometry(QtCore.QRect(30, 30, 321, 201))
-        self.label.setObjectName(_fromUtf8("label"))
-        self.pushButton_2 = QtGui.QPushButton(self.centralwidget)
-        self.pushButton_2.setGeometry(QtCore.QRect(420, 120, 191, 41))
-        self.pushButton_2.setObjectName(_fromUtf8("pushButton_2"))
-        self.pushButton_3 = QtGui.QPushButton(self.centralwidget)
-        self.pushButton_3.setGeometry(QtCore.QRect(420, 170, 191, 41))
-        self.pushButton_3.setObjectName(_fromUtf8("pushButton_3"))
-        self.pushButton_4 = QtGui.QPushButton(self.centralwidget)
-        self.pushButton_4.setGeometry(QtCore.QRect(420, 220, 191, 41))
-        self.pushButton_4.setObjectName(_fromUtf8("pushButton_4"))
-        self.pushButton_5 = QtGui.QPushButton(self.centralwidget)
-        self.pushButton_5.setGeometry(QtCore.QRect(420, 270, 191, 41))
-        self.pushButton_5.setObjectName(_fromUtf8("pushButton_5"))
-        self.label_2 = QtGui.QLabel(self.centralwidget)
-        self.label_2.setGeometry(QtCore.QRect(20, 310, 171, 16))
-        self.label_2.setObjectName(_fromUtf8("label_2"))
-        self.label_3 = QtGui.QLabel(self.centralwidget)
-        self.label_3.setGeometry(QtCore.QRect(20, 330, 171, 16))
-        self.label_3.setObjectName(_fromUtf8("label_3"))
-        self.label_4 = QtGui.QLabel(self.centralwidget)
-        self.label_4.setGeometry(QtCore.QRect(20, 350, 171, 16))
-        self.label_4.setObjectName(_fromUtf8("label_4"))
-        self.label_5 = QtGui.QLabel(self.centralwidget)
-        self.label_5.setGeometry(QtCore.QRect(20, 370, 171, 16))
-        self.label_5.setObjectName(_fromUtf8("label_5"))
-        self.label_6 = QtGui.QLabel(self.centralwidget)
-        self.label_6.setGeometry(QtCore.QRect(20, 390, 171, 16))
-        self.label_6.setObjectName(_fromUtf8("label_6"))
-        MainWindow.setCentralWidget(self.centralwidget)
-        self.menubar = QtGui.QMenuBar(MainWindow)
-        self.menubar.setGeometry(QtCore.QRect(0, 0, 643, 20))
-        self.menubar.setObjectName(_fromUtf8("menubar"))
-        self.menuFile = QtGui.QMenu(self.menubar)
-        self.menuFile.setObjectName(_fromUtf8("menuFile"))
-        self.menuEdit = QtGui.QMenu(self.menubar)
-        self.menuEdit.setObjectName(_fromUtf8("menuEdit"))
-        self.menuHelp = QtGui.QMenu(self.menubar)
-        self.menuHelp.setObjectName(_fromUtf8("menuHelp"))
-        MainWindow.setMenuBar(self.menubar)
-        self.statusbar = QtGui.QStatusBar(MainWindow)
-        self.statusbar.setObjectName(_fromUtf8("statusbar"))
-        MainWindow.setStatusBar(self.statusbar)
-        self.actionOpen = QtGui.QAction(MainWindow)
-        self.actionOpen.setObjectName(_fromUtf8("actionOpen"))
-        self.actionSave = QtGui.QAction(MainWindow)
-        self.actionSave.setObjectName(_fromUtf8("actionSave"))
-        self.actionExit = QtGui.QAction(MainWindow)
-        self.actionExit.setObjectName(_fromUtf8("actionExit"))
-        self.actionOpEN = QtGui.QAction(MainWindow)
-        self.actionOpEN.setObjectName(_fromUtf8("actionOpEN"))
-        self.actionOpEN.setShortcut("Ctrl+O")
-        self.actionOpEN.setStatusTip('Open File')
-        self.actionOpEN.triggered.connect(self.file_open)
-        self.actionDocumentation = QtGui.QAction(MainWindow)
-        self.actionDocumentation.setObjectName(_fromUtf8("actionDocumentation"))
-        self.actionAbout = QtGui.QAction(MainWindow)
-        self.actionAbout.setObjectName(_fromUtf8("actionAbout"))
-        self.actionPrint = QtGui.QAction(MainWindow)
-        self.actionPrint.setObjectName(_fromUtf8("actionPrint"))
-        self.actionSettings = QtGui.QAction(MainWindow)
-        self.actionSettings.setObjectName(_fromUtf8("actionSettings"))
-        self.actionView_log = QtGui.QAction(MainWindow)
-        self.actionView_log.setObjectName(_fromUtf8("actionView_log"))
-        self.actionClear_log = QtGui.QAction(MainWindow)
-        self.actionClear_log.setObjectName(_fromUtf8("actionClear_log"))
-        self.menuFile.addAction(self.actionOpen)
-        self.menuFile.addAction(self.actionOpEN)
-        self.menuFile.addAction(self.actionPrint)
-        self.menuFile.addAction(self.actionSave)
-        self.menuFile.addAction(self.actionExit)
-        self.menuEdit.addAction(self.actionSettings)
-        self.menuEdit.addSeparator()
-        self.menuEdit.addAction(self.actionView_log)
-        self.menuEdit.addAction(self.actionClear_log)
-        self.menuHelp.addAction(self.actionDocumentation)
-        self.menuHelp.addAction(self.actionAbout)
-        self.menubar.addAction(self.menuFile.menuAction())
-        self.menubar.addAction(self.menuEdit.menuAction())
-        self.menubar.addAction(self.menuHelp.menuAction())
-
-        self.retranslateUi(MainWindow)
-        QtCore.QMetaObject.connectSlotsByName(MainWindow)
-
-    def retranslateUi(self, MainWindow):
-        MainWindow.setWindowTitle(_translate("MainWindow", "MainWindow", None))
-        self.pushButton.setText(_translate("MainWindow", "Train", None))
-        self.label.setText(_translate("MainWindow", "<html><head/><body><p align=\"center\"><span style=\" font-size:48pt; font-weight:600;\">Product </span></p><p align=\"center\"><span style=\" font-size:48pt; font-weight:600;\">Name</span></p></body></html>", None))
-        self.pushButton_2.setText(_translate("MainWindow", "Predict", None))
-        self.pushButton_3.setText(_translate("MainWindow", "Load", None))
-        self.pushButton_4.setText(_translate("MainWindow", "Save", None))
-        self.pushButton_5.setText(_translate("MainWindow", "Get Statistics", None))
-        self.label_2.setText(_translate("MainWindow", "\"Insert Product Logo Here\"", None))
-        self.label_3.setText(_translate("MainWindow", "\"Version ......\"", None))
-        self.label_4.setText(_translate("MainWindow", "(c) 2018 - ....", None))
-        self.label_5.setText(_translate("MainWindow", "University of Essex", None))
-        self.label_6.setText(_translate("MainWindow", "Essex, United Kingdom", None))
-        self.menuFile.setTitle(_translate("MainWindow", "File", None))
-        self.menuEdit.setTitle(_translate("MainWindow", "Options", None))
-        self.menuHelp.setTitle(_translate("MainWindow", "Help", None))
-        self.actionOpen.setText(_translate("MainWindow", "New", None))
+    def __init__(self):
+        # use super to return parent object
+        super(Window, self).__init__()
+        self.setGeometry(50, 50, 650, 450)
+        self.setWindowTitle("Brain Scanner!")
+        #self.setWindowIcon(QtGui.QIcon('pythonlogo.png'))
         
-        self.actionSave.setText(_translate("MainWindow", "Save", None))
-        self.actionExit.setText(_translate("MainWindow", "Exit", None))
-        self.actionOpEN.setText(_translate("MainWindow", "Open", None))
-        self.actionDocumentation.setText(_translate("MainWindow", "Documentation", None))
-        self.actionAbout.setText(_translate("MainWindow", "About", None))
-        self.actionPrint.setText(_translate("MainWindow", "Print", None))
-        self.actionSettings.setText(_translate("MainWindow", "Settings..", None))
-        self.actionView_log.setText(_translate("MainWindow", "View log..", None))
-        self.actionClear_log.setText(_translate("MainWindow", "Clear log", None))
+        # below for file menu
+        extractAction = QtGui.QAction("&GET TO THE CHOPPAH!!!", self)
+        extractAction.setShortcut("Ctrl+Q")
+        # below for status bar
+        extractAction.setStatusTip('Leave The App')
+        extractAction.triggered.connect(self.close_application)
 
-    def buttoncConnect(self):
-        self.pushButton.clicked.connect(lambda: wrapper.test())
-        self.pushButton_2.clicked.connect(lambda: self.printer("Predict"))
+        openFile = QtGui.QAction("&Open File", self)
+        openFile.setShortcut("Ctrl+O")
+        openFile.setStatusTip('Open File')
+        openFile.triggered.connect(self.file_open)
         
+        saveFile = QtGui.QAction("&Save File", self)
+        saveFile.setShortcut("Ctrl+S")
+        saveFile.setStatusTip('Save File')
+        saveFile.triggered.connect(self.file_save)
+
+        self.statusBar()
+
+        # to add things to menu bar
+        mainMenu = self.menuBar()
+        # below name is 'File'
+        fileMenu = mainMenu.addMenu('&File')
+        fileMenu.addAction(extractAction)
+        fileMenu.addAction(openFile)
+        fileMenu.addAction(saveFile)
+        
+        self.home()
+
+    def home(self):
+        btn1 = QtGui.QPushButton("Train", self)
+        btn1.clicked.connect(self.file_open)
+        btn1.resize(191,41)
+        btn1.move(420,100)
+
+        btn2 = QtGui.QPushButton("Predict", self)
+        btn2.clicked.connect(QtCore.QCoreApplication.instance().quit)
+        btn2.resize(191,41)
+        btn2.move(420,150)
+
+        btn3 = QtGui.QPushButton("Load", self)
+        btn3.clicked.connect(QtCore.QCoreApplication.instance().quit)
+        btn3.resize(191,41)
+        btn3.move(420,200)
+
+        btn4 = QtGui.QPushButton("Save", self)
+        btn4.clicked.connect(QtCore.QCoreApplication.instance().quit)
+        btn4.resize(191,41)
+        btn4.move(420,250)
+
+        btn5 = QtGui.QPushButton("Get Statistics", self)
+        btn5.clicked.connect(QtCore.QCoreApplication.instance().quit)
+        btn5.resize(191,41)
+        btn5.move(420,300)
+
+        # below for progress bar
+        #self.progress = QtGui.QProgressBar(self)
+        #self.progress.setGeometry(200, 80, 250, 20)
+
+        #self.btn = QtGui.QPushButton("Download",self)
+        #self.btn.move(200,120)
+        #self.btn.clicked.connect(self.download)
+
+        label_1 = QtGui.QLabel("Product \n  Name", self)
+        label_1.setFont(QtGui.QFont("Times", 40, QtGui.QFont.Bold))
+        label_1.resize(321, 201)
+        label_1.move(30,30)
+
+        label_2 = QtGui.QLabel("Insert Product Logo Here", self)
+        label_2.resize(200, 16)
+        label_2.move(20, 310)
+
+        label_3 = QtGui.QLabel("Version ......", self)
+        label_3.resize(171, 16)
+        label_3.move(20, 330)
+
+        label_4 = QtGui.QLabel("(c) 2018 - ....", self)
+        label_4.resize(171, 16)
+        label_4.move(20, 350)
+
+        label_5 = QtGui.QLabel("University of Essex", self)
+        label_5.resize(171, 16)
+        label_5.move(20, 370)
+
+        label_6 = QtGui.QLabel("Essex, United Kingdom", self)
+        label_6.resize(171, 16)
+        label_6.move(20, 390)
+
+
+
+        self.show()
+
     def file_open(self):
         name = QtGui.QFileDialog.getOpenFileName(self, 'Open File')
         file = open(name,'r')
 
         self.editor()
 
-        with file:
-            text = file.read()
-            self.textEdit.setText(text)
+        choice = QtGui.QMessageBox.question(self, 'Extract!',
+                                            "Are you sure you want to train?",
+                                            QtGui.QMessageBox.Yes | QtGui.QMessageBox.No)
+        if choice == QtGui.QMessageBox.Yes:
+            with file:
+                text = file.read()
+                self.textEdit.setText(text)
+        else:
+            pass
 
-    def printer(self, st):
-        print(st)
+        #with file:
+        #    text = file.read()
+        #    self.textEdit.setText(text)
 
-    def train(self):
-        # change gui to say training in progress.
-        # then call the wrapper from here. 
-        
-        # change GUI { training}
-        # do thing
-        # change gui back {main gui}
-        
+    def file_save(self):
+        name = QtGui.QFileDialog.getSaveFileName(self, 'Save File')
+        file = open(name,'w')
+        text = self.textEdit.toPlainText()
+        file.write(text)
+        file.close()
 
+    def editor(self):
+        self.textEdit = QtGui.QTextEdit()
+        self.setCentralWidget(self.textEdit)
 
+    def download(self):
+        self.completed = 0
 
-if __name__ == "__main__":
-    import sys
+        while self.completed < 100:
+            self.completed += 0.0001
+            self.progress.setValue(self.completed)
+
+    def color_picker(self):
+        color = QtGui.QColorDialog.getColor()
+        self.styleChoice.setStyleSheet("QWidget { background-color: %s}" % color.name())
+
+    def close_application(self):
+        choice = QtGui.QMessageBox.question(self, 'Extract!',
+                                            "Are you sure you want to exit?",
+                                            QtGui.QMessageBox.Yes | QtGui.QMessageBox.No)
+        if choice == QtGui.QMessageBox.Yes:
+            print("Extracting Naaaaaaoooww!!!!")
+            sys.exit()
+        else:
+            pass
+
+def run():
     app = QtGui.QApplication(sys.argv)
-    MainWindow = QtGui.QMainWindow()
-    ui = Ui_MainWindow()
-    ui.setupUi(MainWindow)
-    ui.buttoncConnect()
-    MainWindow.show()
+    GUI = Window()
     sys.exit(app.exec_())
 
+
+run()
