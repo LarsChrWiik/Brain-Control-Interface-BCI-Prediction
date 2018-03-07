@@ -7,6 +7,9 @@
 # WARNING! All changes made in this file will be lost!
 
 from PyQt4 import QtCore, QtGui
+from Wrapper import Wrapper
+
+wrapper = Wrapper()
 
 try:
     _fromUtf8 = QtCore.QString.fromUtf8
@@ -83,6 +86,9 @@ class Ui_MainWindow(object):
         self.actionExit.setObjectName(_fromUtf8("actionExit"))
         self.actionOpEN = QtGui.QAction(MainWindow)
         self.actionOpEN.setObjectName(_fromUtf8("actionOpEN"))
+        self.actionOpEN.setShortcut("Ctrl+O")
+        self.actionOpEN.setStatusTip('Open File')
+        self.actionOpEN.triggered.connect(self.file_open)
         self.actionDocumentation = QtGui.QAction(MainWindow)
         self.actionDocumentation.setObjectName(_fromUtf8("actionDocumentation"))
         self.actionAbout = QtGui.QAction(MainWindow)
@@ -130,6 +136,7 @@ class Ui_MainWindow(object):
         self.menuEdit.setTitle(_translate("MainWindow", "Options", None))
         self.menuHelp.setTitle(_translate("MainWindow", "Help", None))
         self.actionOpen.setText(_translate("MainWindow", "New", None))
+        
         self.actionSave.setText(_translate("MainWindow", "Save", None))
         self.actionExit.setText(_translate("MainWindow", "Exit", None))
         self.actionOpEN.setText(_translate("MainWindow", "Open", None))
@@ -140,6 +147,33 @@ class Ui_MainWindow(object):
         self.actionView_log.setText(_translate("MainWindow", "View log..", None))
         self.actionClear_log.setText(_translate("MainWindow", "Clear log", None))
 
+    def buttoncConnect(self):
+        self.pushButton.clicked.connect(lambda: wrapper.test())
+        self.pushButton_2.clicked.connect(lambda: self.printer("Predict"))
+        
+    def file_open(self):
+        name = QtGui.QFileDialog.getOpenFileName(self, 'Open File')
+        file = open(name,'r')
+
+        self.editor()
+
+        with file:
+            text = file.read()
+            self.textEdit.setText(text)
+
+    def printer(self, st):
+        print(st)
+
+    def train(self):
+        # change gui to say training in progress.
+        # then call the wrapper from here. 
+        
+        # change GUI { training}
+        # do thing
+        # change gui back {main gui}
+        
+
+
 
 if __name__ == "__main__":
     import sys
@@ -147,6 +181,7 @@ if __name__ == "__main__":
     MainWindow = QtGui.QMainWindow()
     ui = Ui_MainWindow()
     ui.setupUi(MainWindow)
+    ui.buttoncConnect()
     MainWindow.show()
     sys.exit(app.exec_())
 
