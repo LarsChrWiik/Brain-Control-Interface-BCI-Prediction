@@ -60,10 +60,7 @@ class BciObject:
     """
     def compare_models(self, data_raw):
         # Pre-process the data.
-        X, Y = self.preprocessor.preprocess(
-            data_raw,
-            shrink_percent=0.7
-        )
+        X, Y = self.preprocessor.preprocess(data_raw)
 
         # Randomize the data.
         X, Y = Randomizer.shuffle_two_lists(X, Y)
