@@ -16,5 +16,5 @@ class Wrapper:
     def train(self, data_raw):
         return self.bciObject.train(data_raw)
 
-    def predict(self):
-        return self.bciObject.predict()
+    def predict(self, data_raw):
+        return self.bciObject.predict(data_raw)
