@@ -1,88 +1,66 @@
-from sklearn.svm import SVC
-from sklearn.naive_bayes import GaussianNB
-from sklearn.ensemble import GradientBoostingClassifier
-from sklearn.model_selection import cross_val_score
+from sklearn.model_selection import train_test_split
+
+
 from API.Statistics.PredictionModelStatistics import PredictionModelStatistics
 
 
-"""
-Ensemble model. 
-This is build by several models. 
-"""
 class PredictionModel:
 
-    model_statistics = PredictionModelStatistics()
+    def __init__(self):
+        self.model_statistics = PredictionModelStatistics()
 
-    """ Set up the classification models """
+    def train(self, classifiers, X, Y, test_size=0.3):
 
+        predictions = []
 
-    # Svm
-    model_one = SVC()
+        # Divide into training and test set.
+        training_input, testing_input, training_target, testing_target = train_test_split(
+            X,
+            Y,
+            test_size=test_size
+        )
+        i = 0
+        while(i < len(classifiers)):
+            classifiers[i].fit(training_input, training_target)
+            i+=1
 
-    """
-    # Gaussian Naive Bayes
-    model_two = GaussianNB()
+        i = 0
 
-    # Gradient Boosting
-    model_three = GradientBoostingClassifier()
+        while(i < len(classifiers)):
+            predictions.append(classifiers[i].predict(testing_input))
+            i+=1
 
-    # Final classifier.
-    #MLP = MLPClassifier()
+        prediction_final = self.combine(predictions)
 
-    # Logistic Regression
-
-    # Lda
-
-    # Training Method
-    """
-
-
-
-
-    def fit(self, X, Y):
-        self.model_one.fit(X, Y)
-        pass
-
-    def score(self, X, Y):
-        pass
-
-    def predict(self, X):
-        pass
-
-    def clear_statistics(self):
-        self.model_statistics.clear_statistics()
+        self.model_statistics.fill(testing_target, prediction_final)
 
 
 
-"""
-    def train(self, X, Y):
-        # X input, Y target
-        print("Model One Training")
-        self.model_one.fit(X, Y)
-        print("Model Two Training")
-        self.model_two.fit(X, Y)
-        print("Model Three Training")
-        self.model_three.fit(X, Y)
-    #   print("MLP Training")
-    #   self.MLP.fit(X, Y)
 
+    def predict(self, classifiers, X):
+        predictions = []
+        i = 0
+        while(i < len(classifiers)):
+           predictions.append(classifiers[i].predict(X))
+           i+=1
 
-    def score(self, X, Y):
-        # X input, Y target
-        a = self.model_one.score(X, Y)
-        b = self.model_two.score(X, Y)
-        c = self.model_three.score(X, Y)
-        ans = [a, b, c]
+    def combine(self, predictions):
+        ans = []
+        i = 0
+        j = 0
+        zero = 0
+        one = 0
+        while(j < len(predictions[i])):
+            while (i < len(predictions)):
+               if(predictions[i][j] == 0):
+                   zero +=1
+               else:
+                   one += 1
+               i += 1
+            if(zero > one):
+                ans.append(0.0)
+            else:
+                ans.append(1.0)
+            i = 0
+            j+=1
         return ans
-
-
-    def cross_validate(self, X, Y, k_folds = None):
-        print("Cross-validaion begun 1")
-        a = cross_val_score(self.model_one, X, Y, cv = k_folds)
-        print("Cross-validaion begun 2")
-        b = cross_val_score(self.model_two, X, Y, cv = k_folds)
-        print("Cross-validaion begun 3")
-        c = cross_val_score(self.model_three, X, Y, cv = k_folds)
-        return [a, b, c]
-
-"""
