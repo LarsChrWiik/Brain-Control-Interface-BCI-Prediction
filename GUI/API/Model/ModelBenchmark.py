@@ -8,7 +8,7 @@ warnings.filterwarnings("ignore")
 class ModelBenchmark:
 
     @staticmethod
-    def run(classifier, X, Y, test_size=0.3, k_fold=10):
+    def run(classifier, X, Y, test_size=0.3, k_fold=10, custom_print=None):
         # Model name.
         model_name = type(classifier).__name__
 
@@ -40,6 +40,8 @@ class ModelBenchmark:
 
         # Print information.
         print("***** " + str(model_name) + " : " + str(cv_avg) + " *****")
+        if custom_print is not None:
+            print("custom_print = " + custom_print)
         print("Cross-Validation = " + str(cv))
         print("Kappa = " + str(kappa))
         print("Number of 0 in prediction = " + str(count_0))

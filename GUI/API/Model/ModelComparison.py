@@ -24,20 +24,23 @@ class ModelComparison:
         ModelBenchmark.run(
             KNeighborsClassifier(n_neighbors=3),
             X,
-            Y
+            Y,
+            custom_print="n_neighbors=3"
         )
 
         # 5-Nearest Neighbor.
         ModelBenchmark.run(
             KNeighborsClassifier(n_neighbors=5),
             X,
-            Y
+            Y,
+            custom_print="n_neighbors=5"
         )
         # 7-Nearest Neighbor.
         ModelBenchmark.run(
             KNeighborsClassifier(n_neighbors=7),
             X,
-            Y
+            Y,
+            custom_print="n_neighbors=7"
         )
 
         # Naive Bayes classifier for multinomial models.
@@ -56,7 +59,12 @@ class ModelComparison:
         ModelBenchmark.run(MLPClassifier(), X, Y)
 
         # Stochastic Gradient Descent
-        ModelBenchmark.run(SGDClassifier(shuffle=True), X, Y)
+        ModelBenchmark.run(
+            SGDClassifier(shuffle=True),
+            X,
+            Y,
+            custom_print="shuffle=True"
+        )
 
         # Decision Tree Classifer
         ModelBenchmark.run(DecisionTreeClassifier(), X, Y)
