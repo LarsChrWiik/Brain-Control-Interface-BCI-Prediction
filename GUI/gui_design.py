@@ -1,5 +1,9 @@
 import sys
 from PyQt4 import QtGui, QtCore
+from Wrapper import Wrapper
+from Importer import Importer
+
+wrapper = Wrapper()
 
 # main window inherit from main window
 class Window(QtGui.QMainWindow):
@@ -105,19 +109,30 @@ class Window(QtGui.QMainWindow):
 
     def file_open(self):
         name = QtGui.QFileDialog.getOpenFileName(self, 'Open File')
-        file = open(name,'r')
+        #print(name)
+        #file = open(name,'r')
 
-        self.editor()
+        #self.editor()
 
         choice = QtGui.QMessageBox.question(self, 'Extract!',
                                             "Are you sure you want to train?",
                                             QtGui.QMessageBox.Yes | QtGui.QMessageBox.No)
         if choice == QtGui.QMessageBox.Yes:
-            with file:
-                text = file.read()
-                self.textEdit.setText(text)
-        else:
+            print(name)
+            lol = Importer.mat(name)
+            print(lol)
+            wrapper.train(lol)
+
+        else: 
             pass
+        
+        print('Training completed')
+        
+        #    with file:
+        #        text = file.read()
+        #        self.textEdit.setText(text)
+        #else:
+        #    pass
 
         #with file:
         #    text = file.read()
@@ -130,9 +145,9 @@ class Window(QtGui.QMainWindow):
         file.write(text)
         file.close()
 
-    def editor(self):
-        self.textEdit = QtGui.QTextEdit()
-        self.setCentralWidget(self.textEdit)
+    #def editor(self):
+    #    self.textEdit = QtGui.QTextEdit()
+    #    self.setCentralWidget(self.textEdit)
 
     def download(self):
         self.completed = 0
