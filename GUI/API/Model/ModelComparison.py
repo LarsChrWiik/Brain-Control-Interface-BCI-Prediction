@@ -8,6 +8,7 @@ from sklearn.neighbors import KNeighborsClassifier
 from sklearn.naive_bayes import MultinomialNB ,BernoulliNB
 from sklearn.neural_network import MLPClassifier
 from sklearn.tree import DecisionTreeClassifier
+from sklearn.linear_model import LogisticRegression
 
 """
 Class used for comparing different models.
@@ -16,6 +17,9 @@ class ModelComparison:
 
     @staticmethod
     def start(X, Y):
+
+        # LogisticRegression
+        ModelBenchmark.run(LogisticRegression(solver="lbfgs", multi_class="multinomial"), X, Y)
 
         # Support Vector Machine.
         ModelBenchmark.run(SVC(), X, Y)
