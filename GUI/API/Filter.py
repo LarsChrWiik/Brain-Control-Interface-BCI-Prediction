@@ -1,6 +1,6 @@
 import scipy.signal as signal
 import numpy as np
-from GUI.Visualization import Visualization
+#from GUI.Visualization import Visualization
 from scipy.ndimage.filters import gaussian_laplace as gl
 from typing import Union
 
