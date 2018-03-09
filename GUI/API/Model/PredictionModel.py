@@ -1,6 +1,5 @@
+
 from sklearn.model_selection import train_test_split
-
-
 from API.Statistics.PredictionModelStatistics import PredictionModelStatistics
 
 
@@ -62,3 +61,6 @@ class PredictionModel:
             i = 0
             j+=1
         return ans
+
+    def clear_statistics(self):
+        self.model_statistics.clear_statistics()
