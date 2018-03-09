@@ -10,11 +10,20 @@ class Wrapper:
     bciObject = BciObject()
 
     # TODO: FOR DEVELOPMENT:
-    def compare_models(self, data_raw):
-        return self.bciObject.compare_models(data_raw)
+    def compare_models(self, data_raw, verbose=False):
+        return self.bciObject.compare_models(
+            data_raw,
+            verbose=verbose
+        )
 
     def train(self, data_raw, with_targets=True, shrink_percent=0, should_balance=True, verbose=False):
-        return self.bciObject.train(data_raw)
+        return self.bciObject.train(
+            data_raw=data_raw,
+            with_targets=with_targets,
+            shrink_percent=shrink_percent,
+            should_balance=should_balance,
+            verbose=verbose
+        )
 
     def predict(self, data_raw):
         return self.bciObject.predict(data_raw)

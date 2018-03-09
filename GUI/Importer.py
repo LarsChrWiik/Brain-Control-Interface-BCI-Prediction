@@ -20,7 +20,10 @@ class Importer:
     This function is compatible for both training and test files.
     """
     @staticmethod
-    def mat(filename):
+    def mat(filename, verbose=False):
+
+        if verbose: print("Start importing mat file")
+
         data = scipy.io.loadmat(filename)
         data = dict(data)
 
@@ -38,6 +41,8 @@ class Importer:
             del data["TargetChar"]
         except:
             pass
+
+        if verbose: print("Transpose signal in Importer")
 
         # Transpose Signal.
         signals = np.array(data["Signal"])

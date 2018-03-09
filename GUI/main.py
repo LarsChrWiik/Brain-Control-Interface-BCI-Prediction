@@ -20,7 +20,7 @@ def development(filename):
         
 
     # Train.
-    wrapper.compare_models(data_raw)
+    wrapper.compare_models(data_raw, verbose=True)
 
 
 development(filename_train_A)

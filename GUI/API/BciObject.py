@@ -14,7 +14,8 @@ class BciObject:
     Train the prediction model. 
     """
     def train(
-            self, data_raw,
+            self,
+            data_raw,
             with_targets=True,
             shrink_percent=0,
             should_balance=True,
@@ -60,9 +61,9 @@ class BciObject:
     """
     Compare performance of different models. 
     """
-    def compare_models(self, data_raw):
+    def compare_models(self, data_raw, verbose=False):
         # Pre-process the data.
-        X, Y = self.preprocessor.preprocess(data_raw)
+        X, Y = self.preprocessor.preprocess(data_raw, verbose=verbose)
 
         # Randomize the data.
         X, Y = Randomizer.shuffle_two_lists(X, Y)
