@@ -166,7 +166,6 @@ class Window(QMainWindow):
             Visualization.visualize_2(filtered_signal[0][0])
 
             print("done with graph")
-            """
 
 
             # TODO: Get statistics from prediction model. when lewis is done.
