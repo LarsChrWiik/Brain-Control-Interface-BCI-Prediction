@@ -1,66 +1,45 @@
 
 from sklearn.model_selection import train_test_split
 from API.Statistics.PredictionModelStatistics import PredictionModelStatistics
+from sklearn.model_selection import cross_val_score
+
+from sklearn.svm import SVC
+from sklearn.neural_network import MLPClassifier
+from sklearn.neighbors import KNeighborsClassifier
+from sklearn.ensemble import GradientBoostingClassifier, VotingClassifier
 
 
 class PredictionModel:
 
     def __init__(self):
         self.model_statistics = PredictionModelStatistics()
+        self.classifiers = [ ("SVC", SVC()),
+                             ("KNN", KNeighborsClassifier(n_neighbors=9)),
+                             ("GBC",GradientBoostingClassifier(max_depth=5)),
+                             ("MLP", MLPClassifier(activation="tanh"))
+                             ]
+        self.classifier = VotingClassifier(estimators = self.classifiers,)
 
-    def train(self, classifiers, X, Y, test_size=0.3):
-        predictions = []
-        # Divide into training and test set.
+    def train(self, X, Y, test_size=0.3, k_fold=10):
+        # split for validation
         training_input, testing_input, training_target, testing_target = train_test_split(
             X,
             Y,
             test_size=test_size
         )
-        i = 0
+
         # Train
-        while(i < len(classifiers)):
-            classifiers[i].fit(training_input, training_target)
-            i+=1
+        self.classifier.fit(training_input,testing_target)
 
-        i = 0
-        # Test
-        while(i < len(classifiers)):
-            predictions.append(classifiers[i].predict(testing_input))
-            i+=1
-        # Combine
-        prediction_final = self.combine(predictions)
+        # Validate
+        prediction = self.classifier.predict(testing_input)
+
         # Add statistics
-        self.model_statistics.fill(testing_target, prediction_final)
+        self.model_statistics.fill(testing_target, prediction)
 
-    def predict(self, classifiers, X):
-        predictions = []
-        i = 0
-        while(i < len(classifiers)):
-           predictions.append(classifiers[i].predict(X))
-           i+=1
-        return self.combine(predictions)
+    def predict(self, X):
+        return self.classifier.predict(X)
 
-
-    def combine(self, predictions):
-        ans = []
-        i = 0
-        j = 0
-        zero = 0
-        one = 0
-        while(j < len(predictions[i])):
-            while (i < len(predictions)):
-               if(predictions[i][j] == 0):
-                   zero +=1
-               else:
-                   one += 1
-               i += 1
-            if(zero > one):
-                ans.append(0.0)
-            else:
-                ans.append(1.0)
-            i = 0
-            j+=1
-        return ans
 
     def clear_statistics(self):
         self.model_statistics.clear_statistics()
