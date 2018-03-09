@@ -1,11 +1,11 @@
 
 from API.Model.ModelBenchmark import ModelBenchmark
 from sklearn.linear_model import SGDClassifier
-from sklearn.ensemble import GradientBoostingClassifier , RandomForestClassifier
+from sklearn.ensemble import GradientBoostingClassifier, RandomForestClassifier, VotingClassifier
 from sklearn.naive_bayes import GaussianNB
 from sklearn.svm import SVC, LinearSVC
 from sklearn.neighbors import KNeighborsClassifier
-from sklearn.naive_bayes import MultinomialNB ,BernoulliNB
+from sklearn.naive_bayes import MultinomialNB, BernoulliNB
 from sklearn.neural_network import MLPClassifier
 from sklearn.tree import DecisionTreeClassifier
 from sklearn.linear_model import LogisticRegression
@@ -73,10 +73,10 @@ class ModelComparison:
         ModelBenchmark.run(RandomForestClassifier(), X, Y, custom_print="Default")
 
         # Random Forest
-        ModelBenchmark.run(RandomForestClassifier(n_estimators=15), X, Y, custom_print="n_estimators=15")
+        ModelBenchmark.run(RandomForestClassifier(n_estimators=50), X, Y, custom_print="n_estimators=50")
 
         # Random Forest
-        ModelBenchmark.run(RandomForestClassifier(n_estimators=20), X, Y, custom_print="n_estimators=20")
+        ModelBenchmark.run(RandomForestClassifier(n_estimators=100), X, Y, custom_print="n_estimators=100")
 
         # MLP
         ModelBenchmark.run(MLPClassifier(), X, Y, custom_print="Default")
@@ -96,6 +96,18 @@ class ModelComparison:
         # Stochastic Gradient Descent
         ModelBenchmark.run(SGDClassifier(shuffle=True), X, Y, custom_print="shuffle=True")
 
-
         # Decision Tree Classifer
         ModelBenchmark.run(DecisionTreeClassifier(), X, Y)
+
+        ModelBenchmark.run(
+            VotingClassifier(
+                estimators=[
+                    ('svm', SVC()),
+                    ('knn', KNeighborsClassifier(n_neighbors=9)),
+                    ('gb', GradientBoostingClassifier(max_depth=5)),
+                    ('mlp', MLPClassifier(activation="tanh"))
+                ],
+                voting='hard'
+            ),
+            X, Y, custom_print="voting=hard"
+        )
