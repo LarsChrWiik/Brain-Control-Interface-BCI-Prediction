@@ -123,7 +123,6 @@ class Filter:
             example = data["Signal"][i]
             transposed = np.transpose(example)
             new_time_steps = []
-            print(len(transposed))
             for trans in transposed:
                 new_time_step = Filter.__laplacian_filter_sample(trans, sigma)
                 new_time_steps.append(new_time_step)
