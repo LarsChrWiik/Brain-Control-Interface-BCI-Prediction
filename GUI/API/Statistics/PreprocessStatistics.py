@@ -6,9 +6,34 @@ Statistical data collection for the pre-processing step.
 """
 class PreprocessStatistics:
 
+    """
+    raw_signal:
+        1dm: example
+        2dm: channels / signals
+        3dm: timesteps
+    """
     raw_signal = None
+
+    """
+    filtered_signal:
+        1dm: example
+        2dm: channels / signals
+        3dm: timesteps
+    """
     filtered_signal = None
+
+    """
+    chunked_X:
+        1dm: number_of_chunks
+        2dm: channels / signals
+        3dm: timesteps
+    """
     chunked_X = None
+
+    """
+    chunked_X:
+        1dm: target
+    """
     chunked_Y = None
 
     number_of_chunks = 10
