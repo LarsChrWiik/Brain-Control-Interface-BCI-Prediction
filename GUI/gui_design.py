@@ -116,35 +116,24 @@ class Window(QMainWindow):
         self.show()
 
     def file_open(self):
-        name = QFileDialog.getOpenFileName(self, 'Open File')
-        #print(name)
-        #file = open(name,'r')
+        # Let the user chose a file.
+        filename = QFileDialog.getOpenFileName(self, 'Open File')[0]
 
-        #self.editor()
+        # Make sure the user wants to use train.
+        choice = QMessageBox.question(
+            self,
+            'Extract!',
+            "Are you sure you want to train?",
+            QMessageBox.Yes | QMessageBox.No
+        )
 
-        choice = QMessageBox.question(self, 'Extract!',
-                                            "Are you sure you want to train?",
-                                            QMessageBox.Yes | QMessageBox.No)
         if choice == QMessageBox.Yes:
-            print(name)
-            lol = Importer.mat(name)
-            print(lol)
-            wrapper.train(lol)
-
-        else: 
+            # User wants to train.
+            raw_data = Importer.mat(filename)
+            wrapper.train(raw_data)
+        else:
+            # User don't want to train.
             pass
-        
-        print('Training completed')
-        
-        #    with file:
-        #        text = file.read()
-        #        self.textEdit.setText(text)
-        #else:
-        #    pass
-
-        #with file:
-        #    text = file.read()
-        #    self.textEdit.setText(text)
 
     def file_save(self):
         name = QFileDialog.getSaveFileName(self, 'Save File')
