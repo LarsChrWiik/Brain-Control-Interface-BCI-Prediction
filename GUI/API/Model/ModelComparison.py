@@ -16,7 +16,8 @@ Class used for comparing different models.
 class ModelComparison:
 
     @staticmethod
-    def start(X, Y):
+    def start(X, Y, verbose=True):
+        if verbose: print("Started ModelComparison")
 
         # LogisticRegression
         ModelBenchmark.run(LogisticRegression(solver="lbfgs", multi_class="multinomial"), X, Y)

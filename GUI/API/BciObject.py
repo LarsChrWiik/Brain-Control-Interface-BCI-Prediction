@@ -17,7 +17,8 @@ class BciObject:
             self, data_raw,
             with_targets=True,
             shrink_percent=0,
-            should_balance=True
+            should_balance=True,
+            verbose=False
     ):
         self.clear_statistics()
 
@@ -26,7 +27,8 @@ class BciObject:
             data_raw,
             with_targets,
             shrink_percent,
-            should_balance
+            should_balance,
+            verbose
         )
 
         # Randomize the data.

@@ -28,7 +28,7 @@ class Preprocessor:
             with_targets=True,
             shrink_percent=0,
             should_balance=True,
-            verbose=True
+            verbose=False
     ):
         if verbose: print("Started pre-processing")
 
