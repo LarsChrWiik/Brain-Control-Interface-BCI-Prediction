@@ -5,7 +5,7 @@ from PyQt5.QtGui import QIcon, QColor, QFont
 from PyQt5.QtWidgets import QApplication, QWidget, QMainWindow, QPushButton, QAction, QMessageBox
 from PyQt5.QtWidgets import QCalendarWidget, QColorDialog, QTextEdit, QFileDialog
 from PyQt5.QtWidgets import QCheckBox, QProgressBar, QComboBox, QLabel, QStyleFactory, QLineEdit, QInputDialog
-import threading
+from threading import Thread
 
 from Wrapper import Wrapper
 from Importer import Importer
@@ -19,7 +19,7 @@ class Window(QMainWindow):
         # use super to return parent object
         super(Window, self).__init__()
         self.setGeometry(50, 50, 650, 450)
-        self.setWindowTitle("Brain Scanner!")     # to change this file
+        self.setWindowTitle("Brain Scanner")     # to change this file
         
         # below for file menu
         extractAction = QAction("&Exit", self)
@@ -143,7 +143,7 @@ class Window(QMainWindow):
             #self.connect(self.workThread, pyqtSignal("update(QString)"),wrapper.train(raw_data))
             #self.workThread.start()
 
-            wrapper.train(raw_data)
+            Thread(target=wrapper.train, args=(raw_data))
         else:
             # User don't want to train.
             pass
