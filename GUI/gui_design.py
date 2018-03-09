@@ -1,12 +1,11 @@
 import sys
 
-from PyQt5.QtCore import QCoreApplication, Qt
+from PyQt5.QtCore import QCoreApplication,QThread,pyqtSignal
 from PyQt5.QtGui import QIcon, QColor, QFont 
 from PyQt5.QtWidgets import QApplication, QWidget, QMainWindow, QPushButton, QAction, QMessageBox
 from PyQt5.QtWidgets import QCalendarWidget, QColorDialog, QTextEdit, QFileDialog
 from PyQt5.QtWidgets import QCheckBox, QProgressBar, QComboBox, QLabel, QStyleFactory, QLineEdit, QInputDialog
-
-
+import threading
 
 from Wrapper import Wrapper
 from Importer import Importer
@@ -20,34 +19,33 @@ class Window(QMainWindow):
         # use super to return parent object
         super(Window, self).__init__()
         self.setGeometry(50, 50, 650, 450)
-        self.setWindowTitle("Brain Scanner!")
-        #self.setWindowIcon(QIcon('pythonlogo.png'))
+        self.setWindowTitle("Brain Scanner!")     # to change this file
         
         # below for file menu
-        extractAction = QAction("&GET TO THE CHOPPAH!!!", self)
+        extractAction = QAction("&Exit", self)
         extractAction.setShortcut("Ctrl+Q")
         # below for status bar
         extractAction.setStatusTip('Leave The App')
         extractAction.triggered.connect(self.close_application)
 
-        openFile = QAction("&Open File", self)
-        openFile.setShortcut("Ctrl+O")
-        openFile.setStatusTip('Open File')
-        openFile.triggered.connect(self.file_open)
+        #openFile = QAction("&Open File", self)
+        #openFile.setShortcut("Ctrl+O")
+        #openFile.setStatusTip('Open File')
+        #openFile.triggered.connect(self.file_open)
         
         saveFile = QAction("&Save File", self)
         saveFile.setShortcut("Ctrl+S")
         saveFile.setStatusTip('Save File')
         saveFile.triggered.connect(self.file_save)
 
-        self.statusBar()
+        #self.statusBar()
 
         # to add things to menu bar
         mainMenu = self.menuBar()
         # below name is 'File'
         fileMenu = mainMenu.addMenu('&File')
         fileMenu.addAction(extractAction)
-        fileMenu.addAction(openFile)
+        #fileMenu.addAction(openFile)
         fileMenu.addAction(saveFile)
         
         self.home()
@@ -115,21 +113,36 @@ class Window(QMainWindow):
 
         self.show()
 
+
+    def worker(self,saved_file):
+        """thread worker function"""
+        wrapper.train(saved_file)
+        return
+
     def file_open(self):
         # Let the user chose a file.
-        filename = QFileDialog.getOpenFileName(self, 'Open File')[0]
+        # only allows mat files to be read in
+        filename = QFileDialog.getOpenFileName(self, 'Open File',filter="*.mat")[0]
 
         # Make sure the user wants to use train.
         choice = QMessageBox.question(
             self,
             'Extract!',
-            "Are you sure you want to train?",
+            "Are you sure you want to train? If you click yes, the training might take long periods to train",
             QMessageBox.Yes | QMessageBox.No
         )
 
         if choice == QMessageBox.Yes:
             # User wants to train.
             raw_data = Importer.mat(filename)
+
+            # adding by emitting signal in different thread
+            #lol = pyqtSignal()
+
+            #self.workThread = WorkThread()
+            #self.connect(self.workThread, pyqtSignal("update(QString)"),wrapper.train(raw_data))
+            #self.workThread.start()
+
             wrapper.train(raw_data)
         else:
             # User don't want to train.
@@ -166,6 +179,23 @@ class Window(QMainWindow):
             sys.exit()
         else:
             pass
+
+    
+
+
+class WorkThread(QThread):
+    def __init__(self):
+        QThread.__init__(self)
+        # add to __init__()
+
+    def __del__(self):
+        self.wait()
+    
+    def run(self):
+        #for i in range(6):
+            #time.sleep(0.3) # artificial time delay
+        self.emit(pyqtSignal('update(QString)'), "from work thread ")
+        return
 
 def run():
     app = QApplication(sys.argv)
