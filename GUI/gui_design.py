@@ -6,9 +6,7 @@ from PyQt5.QtWidgets import QApplication, QWidget, QMainWindow, QPushButton, QAc
 from PyQt5.QtWidgets import QCalendarWidget, QColorDialog, QTextEdit, QFileDialog
 from PyQt5.QtWidgets import QCheckBox, QProgressBar, QComboBox, QLabel, QStyleFactory, QLineEdit, QInputDialog
 from threading import Thread
-import warnings
-warnings.filterwarnings("ignore")
-
+from multiprocessing import Pool
 
 from Wrapper import Wrapper
 from Importer import Importer
@@ -147,11 +145,7 @@ class Window(QMainWindow):
             #self.connect(self.workThread, pyqtSignal("update(QString)"),wrapper.train(raw_data))
             #self.workThread.start()
 
-            thread = Thread(target=self.wrapper.train(raw_data, verbose=True))
-            thread.start()
-            thread.join()
-
-            print("done with thread")
+            self.wrapper.train(data_raw=raw_data, shrink_percent=0.75, verbose=True)
 
             # TODO: This is the statistics.
             raw_signal = self.wrapper.bciObject.preprocessor.preprocess_statistics.raw_signal
@@ -159,20 +153,12 @@ class Window(QMainWindow):
             chunked_X = self.wrapper.bciObject.preprocessor.preprocess_statistics.chunked_X
             chunked_Y = self.wrapper.bciObject.preprocessor.preprocess_statistics.chunked_Y
 
-            print("have statistics")
-
-            Visualization.visualize_2(raw_signal[0][0])
-
-            Visualization.visualize_2(filtered_signal[0][0])
-
-            print("done with graph")
-
-
-            # TODO: Get statistics from prediction model. when lewis is done.
+            # TODO: Do somthing with it.
 
         else:
             # User don't want to train.
             pass
+
 
     def file_save(self):
         name = QFileDialog.getSaveFileName(self, 'Save File')
