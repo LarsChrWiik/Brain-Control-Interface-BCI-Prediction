@@ -29,13 +29,13 @@ class PredictionModel:
         )
 
         # Train
-        self.classifier.fit(training_input,testing_target)
+        self.classifier.fit(X, Y)
 
         # Validate
-        prediction = self.classifier.predict(testing_input)
+        #prediction = self.classifier.predict(testing_input)
 
         # Add statistics
-        self.model_statistics.fill(testing_target, prediction)
+        #self.model_statistics.fill(testing_target, prediction)
 
     def predict(self, X):
         return self.classifier.predict(X)

@@ -6,14 +6,18 @@ from PyQt5.QtWidgets import QApplication, QWidget, QMainWindow, QPushButton, QAc
 from PyQt5.QtWidgets import QCalendarWidget, QColorDialog, QTextEdit, QFileDialog
 from PyQt5.QtWidgets import QCheckBox, QProgressBar, QComboBox, QLabel, QStyleFactory, QLineEdit, QInputDialog
 from threading import Thread
+import warnings
+warnings.filterwarnings("ignore")
+
 
 from Wrapper import Wrapper
 from Importer import Importer
-
-wrapper = Wrapper()
+from Visualization import Visualization
 
 # main window inherit from main window
 class Window(QMainWindow):
+
+    wrapper = Wrapper()
 
     def __init__(self):
         # use super to return parent object
@@ -116,7 +120,7 @@ class Window(QMainWindow):
 
     def worker(self,saved_file):
         """thread worker function"""
-        wrapper.train(saved_file)
+        self.wrapper.train(saved_file)
         return
 
     def file_open(self):
@@ -143,7 +147,30 @@ class Window(QMainWindow):
             #self.connect(self.workThread, pyqtSignal("update(QString)"),wrapper.train(raw_data))
             #self.workThread.start()
 
-            Thread(target=wrapper.train, args=(raw_data))
+            thread = Thread(target=self.wrapper.train(raw_data, verbose=True))
+            thread.start()
+            thread.join()
+
+            print("done with thread")
+
+            # TODO: This is the statistics.
+            raw_signal = self.wrapper.bciObject.preprocessor.preprocess_statistics.raw_signal
+            filtered_signal = self.wrapper.bciObject.preprocessor.preprocess_statistics.filtered_signal
+            chunked_X = self.wrapper.bciObject.preprocessor.preprocess_statistics.chunked_X
+            chunked_Y = self.wrapper.bciObject.preprocessor.preprocess_statistics.chunked_Y
+
+            print("have statistics")
+
+            Visualization.visualize_2(raw_signal[0][0])
+
+            Visualization.visualize_2(filtered_signal[0][0])
+
+            print("done with graph")
+            """
+
+
+            # TODO: Get statistics from prediction model. when lewis is done.
+
         else:
             # User don't want to train.
             pass
@@ -180,22 +207,6 @@ class Window(QMainWindow):
         else:
             pass
 
-    
-
-
-class WorkThread(QThread):
-    def __init__(self):
-        QThread.__init__(self)
-        # add to __init__()
-
-    def __del__(self):
-        self.wait()
-    
-    def run(self):
-        #for i in range(6):
-            #time.sleep(0.3) # artificial time delay
-        self.emit(pyqtSignal('update(QString)'), "from work thread ")
-        return
 
 def run():
     app = QApplication(sys.argv)

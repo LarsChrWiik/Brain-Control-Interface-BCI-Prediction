@@ -19,9 +19,9 @@ class Visualization:
         plt.show()
 
     @staticmethod
-    def visualize_2(stimulus_type):
+    def visualize_2(data):
         # Visualize
-        graph = plt.plot(stimulus_type)
+        graph = plt.plot(data)
         plt.show()
 
     #todo - check the function inputs as definitions needs data its not getting

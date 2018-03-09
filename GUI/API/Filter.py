@@ -8,7 +8,7 @@ from typing import Union
 class Filter:
 
     @staticmethod
-    def filter(data_raw: dict, sigma: int=1) -> dict:
+    def filter(data_raw: dict, sigma: int=1, verbose=False) -> dict:
         """Band Filter and Laplace Filter
         This is the only public function please call all private functions from here.
         You can call Notch & Band pass filters with selectable bandwidth.
@@ -21,9 +21,9 @@ class Filter:
         :returns
             dict: the filtered signal
         """
-        print("band filter")
+        if verbose: print("band filter")
         data = Filter.__band_filter(data_raw, lowFreq=2, highFreq=70, filterType='bandstop')
-        print("laplacian filter")
+        if verbose: print("laplacian filter")
         data = Filter.__laplacian_filter(data, sigma) #Need to write test for this once its complete
         return data
 

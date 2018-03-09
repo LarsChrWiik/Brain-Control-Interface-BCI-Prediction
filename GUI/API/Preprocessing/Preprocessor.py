@@ -35,7 +35,7 @@ class Preprocessor:
         if verbose: print("Started Filtering")
 
         # Filter the input data.
-        data_filtered = Filter.filter(data_raw)
+        data_filtered = Filter.filter(data_raw, verbose=verbose)
 
         if verbose: print("Started Chunking")
 
