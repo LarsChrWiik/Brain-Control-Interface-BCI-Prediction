@@ -10,9 +10,10 @@ class Wrapper:
     bciObject = BciObject()
 
     # TODO: FOR DEVELOPMENT:
-    def compare_models(self, data_raw, verbose=False):
+    def compare_models(self, data_raw, shrink_percent=0, verbose=False):
         return self.bciObject.compare_models(
             data_raw,
+            shrink_percent=shrink_percent,
             verbose=verbose
         )
 
