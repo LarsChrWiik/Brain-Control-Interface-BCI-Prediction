@@ -103,18 +103,6 @@ class Filter:
         high = highFreq / nyq
         b, a = signal.butter(order, [low, high], btype=filterType)
         y = signal.lfilter(b, a, channel)
-        ##Graph - This belongs somewhere else probably.
-        # t = np.linspace(0, len(data), len(data), endpoint=False)
-        # plt.plot(t, y, label='Sensor #' + str(eegSensor) + ' (' + str(lowFreq) + '-' + str(highFreq) + ') Hz')
-        # plt.grid(True)
-        # plt.axis('tight')
-        # plt.xticks(range(10), range(lengthOfTestSeconds)) ##32 seconds per test?
-        # plt.xlabel("Time in Seconds")
-        # plt.legend(loc='upper left')
-        # plt.show()
-
-
-        #Visualization.channelGraph(y[0][0])
         return y
 
     @staticmethod
