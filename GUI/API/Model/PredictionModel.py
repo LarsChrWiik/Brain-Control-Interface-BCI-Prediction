@@ -1,41 +1,39 @@
 
 from sklearn.model_selection import train_test_split
 from API.Statistics.PredictionModelStatistics import PredictionModelStatistics
-from sklearn.model_selection import cross_val_score
-
-from sklearn.svm import SVC
-from sklearn.neural_network import MLPClassifier
+from sklearn.model_selection import KFold
 from sklearn.neighbors import KNeighborsClassifier
-from sklearn.ensemble import GradientBoostingClassifier, VotingClassifier
-
+import numpy as np
 
 class PredictionModel:
 
     def __init__(self):
         self.model_statistics = PredictionModelStatistics()
-        self.classifiers = [ ("SVC", SVC()),
-                             ("KNN", KNeighborsClassifier(n_neighbors=9)),
-                             ("GBC",GradientBoostingClassifier(max_depth=5)),
-                             ("MLP", MLPClassifier(activation="tanh"))
-                             ]
-        self.classifier = VotingClassifier(estimators = self.classifiers,)
+        self.classifier = KNeighborsClassifier(n_neighbors=9)
 
-    def train(self, X, Y, test_size=0.3, k_fold=10):
-        # split for validation
-        training_input, testing_input, training_target, testing_target = train_test_split(
-            X,
-            Y,
-            test_size=test_size
-        )
+    def train(self, X, Y, k_fold=10):
 
+        # cross validate
+        kf = KFold(n_splits=k_fold)
+        for train, test in kf.split(X):
+            # split data
+            train_set = np.array(X)[train]
+            train_set_ans = np.array(Y)[train]
+            test_set = np.array(X)[test]
+            test_set_ans = np.array(Y)[test]
+            # train
+            self.classifier.fit(train_set, train_set_ans)
+            # predict
+            prediction = np.array(self.classifier.predict(test_set))
+            # update stats
+            self.model_statistics.update(test_set_ans, prediction)
+
+        # finish stats
+        self.model_statistics.finish(k_fold)
         # Train
         self.classifier.fit(X, Y)
 
-        # Validate
-        #prediction = self.classifier.predict(testing_input)
 
-        # Add statistics
-        #self.model_statistics.fill(testing_target, prediction)
 
     def predict(self, X):
         return self.classifier.predict(X)

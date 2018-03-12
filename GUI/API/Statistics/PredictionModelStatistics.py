@@ -5,20 +5,47 @@ Statistical data collection for the prediction model.
 """
 class PredictionModelStatistics:
 
-    accuracy = None
-    precision = None
-    recall = None
-    f1 = None
-    support = None
-    kappa = None
+    def __init__(self):
+        self.recall = None
+        self.accuracy = None
+        self.precision = None
+        self.f1 = None
+        self.support = None
+        self.kappa = None
 
-    def fill(self,testing_target, prediction_final ):
-        self.recall = recall_score(testing_target, prediction_final)
-        self.accuracy = accuracy_score(testing_target, prediction_final)
-        self.precision = precision_score(testing_target, prediction_final)
-        self.f1 = f1_score(testing_target, prediction_final)
-        self.support = precision_recall_fscore_support(testing_target, prediction_final)
-        self.kappa = cohen_kappa_score(testing_target, prediction_final)
+    def update(self, testing_target, prediction):
+        if self.recall is None:
+            self.recall = recall_score(testing_target, prediction)
+        else:
+            self.recall += recall_score(testing_target, prediction)
+        if self.accuracy is None:
+            self.accuracy = accuracy_score(testing_target, prediction)
+        else:
+            self.accuracy += accuracy_score(testing_target, prediction)
+        if self.precision is None:
+            self.precision = precision_score(testing_target, prediction)
+        else:
+            self.precision += precision_score(testing_target, prediction)
+        if self.f1 is None:
+            self.f1 = f1_score(testing_target, prediction)
+        else:
+            self.f1 += f1_score(testing_target, prediction)
+        if self.support is None:
+            self.support = precision_recall_fscore_support(testing_target, prediction)
+        else:
+            self.support += precision_recall_fscore_support(testing_target, prediction)
+        if self.kappa is None:
+            self.kappa = cohen_kappa_score(testing_target, prediction)
+        else:
+            self.kappa += cohen_kappa_score(testing_target, prediction)
+
+    def finish(self, folds):
+        self.recall /= folds
+        self.accuracy /= folds
+        self.precision /= folds
+        self.f1 /= folds
+        self.kappa /= folds
+
     """
     Clear the statistical history. 
     """
