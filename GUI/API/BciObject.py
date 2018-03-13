@@ -39,9 +39,9 @@ class BciObject:
     """
     Make a prediction using the prediction model. 
     """
-    def predict(self, data_raw):
+    def predict(self, data_raw, verbose=False):
         # Pre-process the data.
-        X = self.preprocessor.preprocess(data_raw)
+        X = self.preprocessor.preprocess(data_raw, with_targets=False, verbose=verbose)
 
         # Make prediction.
         prediction = self.prediction_model.predict(X)

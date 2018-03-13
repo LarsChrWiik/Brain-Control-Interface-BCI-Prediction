@@ -9,7 +9,7 @@ from sklearn.naive_bayes import MultinomialNB, BernoulliNB
 from sklearn.neural_network import MLPClassifier
 from sklearn.tree import DecisionTreeClassifier
 from sklearn.linear_model import LogisticRegression
-
+from sklearn.dummy import DummyClassifier
 """
 Class used for comparing different models.
 """
@@ -19,6 +19,9 @@ class ModelComparison:
     def start(X, Y, verbose=True):
         if verbose: print("Started ModelComparison")
 
+        # DummyClassifier
+        ModelBenchmark.run(DummyClassifier(), X, Y)
+        
         # LogisticRegression
         ModelBenchmark.run(LogisticRegression(solver="lbfgs", multi_class="multinomial"), X, Y)
 
