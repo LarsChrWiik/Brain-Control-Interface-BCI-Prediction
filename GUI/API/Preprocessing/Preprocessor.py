@@ -1,12 +1,11 @@
-
 from sklearn.preprocessing import MinMaxScaler
 
-from API.Filter import Filter
-from API.Preprocessing.Chunker import Chucker
-from API.Preprocessing.Formater import Formater
 from API.Preprocessing.Balancer import Balancer
-from API.Shrinker import Shrinker
+from API.Preprocessing.Chunker import Chucker
+from API.Preprocessing.Filter import Filter
+from API.Preprocessing.Formater import Formater
 from API.Preprocessing.PLI import PLI
+from API.Shrinker import Shrinker
 from API.Statistics.PreprocessStatistics import PreprocessStatistics
 
 """

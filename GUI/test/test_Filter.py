@@ -1,7 +1,6 @@
 import unittest
-from GUI.API import Filter
-import numpy as np
-from GUI import Importer
+
+from API.Preprocessing import Filter
 
 """
 This isnt running yet but looks like a more manedgble way to runs tests.
@@ -10,8 +9,8 @@ class name. Il look more into it tomorrow.
 """
 
 class TestFilter(unittest.TestCase):
-    def filter(data_raw: dict, sigma: int=1, verbose=False) -> dict:
-        isinstance(data_raw, dict)
-        isinstance(sigma, int)
-        isinstance(verbose, bool)
+
+    def setUp(self):
+        Filter.Filter.filter()
+
 

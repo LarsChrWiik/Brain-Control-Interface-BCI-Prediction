@@ -1,6 +1,5 @@
 import scipy.signal as signal
 import numpy as np
-#from GUI.Visualization import Visualization
 from scipy.ndimage.filters import gaussian_laplace as gl
 from typing import Union
 
@@ -38,7 +37,6 @@ class Filter:
             eegSensor: int = 0,
             filterType: str = 'bandpass',
             lengthOfTestSeconds: Union[int, float] = 32,
-            example: int = 0
     ):
         filtered_channels = []
         for example in data["Signal"]:
@@ -50,11 +48,7 @@ class Filter:
                     highFreq,
                     timestep,
                     samplingFreq,
-                    order,
-                    eegSensor,
-                    filterType,
-                    lengthOfTestSeconds,
-                    example
+                    order
                 )
                 examples.append(filtered_channel)
             filtered_channels.append(examples)
@@ -66,13 +60,9 @@ class Filter:
             channel,
             lowFreq: Union[int, float],
             highFreq: Union[int, float],
-            timestep: int=0,
             samplingFreq: int=240,
             order: int=5,
-            eegSensor: int=0,
             filterType: str='bandpass',
-            lengthOfTestSeconds: Union[int, float]=32,
-            example: int=0
     ):
         """Bandpass and Notch filter
             Mostly done, still looking at another implementation of Unit Testing using the 'import UnitTest' lib, but this
@@ -94,10 +84,7 @@ class Filter:
             :returns
                 dict: The freqencies with in the bounds of lowFreq & highFreq
             """
-        #Test
-        # Filter.__band_filter_test(data=data, low=lowFreq, high=highFreq, samplingFreq=samplingFreq, order=order,
-        #                           eegSensor=eegSensor, filterType=filterType, lengthOfTestSeconds=lengthOfTestSeconds)
-        #Code
+
         nyq = 0.5 * samplingFreq
         low = lowFreq / nyq
         high = highFreq / nyq
@@ -118,17 +105,6 @@ class Filter:
             data["Signal"][i] = transposed_back
         return data
 
-    # @staticmethod
-    # def __band_filter_test(data, low, high, samplingFreq, order, eegSensor, filterType, lengthOfTestSeconds):
-        # assert filterType == 'bandstop' or filterType == 'bandpass'
-        # assert eegSensor >= 0 and eegSensor <= 64
-        # assert order >= 0 ##Need to look at max bounds, when it gets over 6 it makes silly graphs, not sure why yet
-        # assert samplingFreq > 1 and type(samplingFreq) == type(int())## maybe low resolution infra-low brain wave study could need it?
-        # assert low >= 0.00001 and low  < 150 #Ask Jossip about max bounds
-        # assert low < high and high > low
-        # assert high >= 0.00001 and high < 150
-        # assert type(data) == dict and data.shape[0] > 0 and len(data.shape) == 2
-        # assert lengthOfTestSeconds > 0.00001
 
     @staticmethod
     # Enhance the difference between two channels.
