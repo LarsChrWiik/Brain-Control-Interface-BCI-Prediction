@@ -167,7 +167,7 @@ class Window(QMainWindow):
             # User wants to train.
             raw_data = Importer.mat(filename)
 
-            self.wrapper.predict(raw_data)
+            self.wrapper.predict(raw_data, verbose=True)
 
         else:
             # User don't want to train.

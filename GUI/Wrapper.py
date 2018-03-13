@@ -30,5 +30,5 @@ class Wrapper:
             verbose=verbose
         )
 
-    def predict(self, data_raw):
-        return self.bciObject.predict(data_raw, with_targets=True)
+    def predict(self, data_raw, verbose=False):
+        return self.bciObject.predict(data_raw, verbose=verbose)
