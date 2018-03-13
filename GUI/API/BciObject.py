@@ -59,9 +59,9 @@ class BciObject:
     """
     Compare performance of different models. 
     """
-    def compare_models(self, data_raw, verbose=False):
+    def compare_models(self, data_raw, verbose=False, shrink_percent=0):
         # Pre-process the data.
-        X, Y = self.preprocessor.preprocess(data_raw, verbose=verbose)
+        X, Y = self.preprocessor.preprocess(data_raw, shrink_percent=shrink_percent, verbose=verbose)
 
         # Randomize the data.
         X, Y = Randomizer.shuffle_two_lists(X, Y)

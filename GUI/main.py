@@ -16,11 +16,11 @@ def development(filename):
 
     # Make data_raw smaller.
     for row in data_raw:
-        data_raw[row] = data_raw[row][:10]
+        data_raw[row] = data_raw[row][:1]
         
 
     # Train.
-    wrapper.compare_models(data_raw, verbose=True)
+    wrapper.compare_models(data_raw, shrink_percent=0.7, verbose=True)
 
 
 development(filename_train_A)
