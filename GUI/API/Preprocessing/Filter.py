@@ -3,7 +3,6 @@ import numpy as np
 from scipy.ndimage.filters import gaussian_laplace as gl
 from typing import Union
 
-#TODO: Move to Preprocessing folder. 
 class Filter:
 
     @staticmethod
@@ -32,9 +31,11 @@ class Filter:
             lowFreq: Union[int, float],
             highFreq: Union[int, float],
             timestep: int = 0,
-            samplingFreq: int=240,
+            samplingFreq: int = 240,
             order: int = 5,
+            eegSensor: int = 0,
             filterType: str = 'bandpass',
+            lengthOfTestSeconds: Union[int, float] = 32
     ):
         filtered_channels = []
         for example in data["Signal"]:
@@ -44,8 +45,13 @@ class Filter:
                     example[j],
                     lowFreq,
                     highFreq,
+                    timestep,
                     samplingFreq,
-                    order
+                    order,
+                    eegSensor,
+                    filterType,
+                    lengthOfTestSeconds,
+                    example
                 )
                 examples.append(filtered_channel)
             filtered_channels.append(examples)
@@ -59,7 +65,7 @@ class Filter:
             highFreq: Union[int, float],
             samplingFreq: int=240,
             order: int=5,
-            filterType: str='bandpass',
+            filterType: str='bandpass'
     ):
         """Bandpass and Notch filter
             Mostly done, still looking at another implementation of Unit Testing using the 'import UnitTest' lib, but this
@@ -74,17 +80,19 @@ class Filter:
                 highFreq (int, float): (Hz) Can not be lower and lowFreq
                 samplingFreq (int): The sampling resolution fo the EEG capture device
                 order (int): How much delay to use when processing the signal. Above 6 tends to go unpredictable
+                eegSensor (int): Has to be between 0-64. I'm not sure if you can get EEG's bigger than 64 sensors
                 filterType (Str): There are 2 types of filters. 'bandpass' & 'bandstop'
+                lengthOfTestSeconds (int, float): this is only used for the graph - not really needed for core functionality.
 
             :returns
                 dict: The freqencies with in the bounds of lowFreq & highFreq
             """
-
         nyq = 0.5 * samplingFreq
         low = lowFreq / nyq
         high = highFreq / nyq
         b, a = signal.butter(order, [low, high], btype=filterType)
         y = signal.lfilter(b, a, channel)
+
         return y
 
     @staticmethod
@@ -100,17 +108,11 @@ class Filter:
             data["Signal"][i] = transposed_back
         return data
 
-
     @staticmethod
     # Enhance the difference between two channels.
     def __laplacian_filter_sample(time_step, sigma):
 
-        #Initialise a matrix with only zeroes to represent the positions of sensors
-        #An additional column and row is added to each side
         matrix = np.zeros((13, 12))
-        #data = data[0]  # Needs a for loop through the examples and ? additional dimension
-
-        #Map the values to their respective locations to the previously created zero matrix
 
         # Row 1
         matrix[1][4] = time_step[21]
@@ -196,14 +198,9 @@ class Filter:
         # Row 10
         matrix[10][6] = time_step[63]
 
-
-
-        #filter the matrix using a laplacian gaussian filter
-
+        #filter the matrix using a laplacian gaussian filter.
         matrix = gl(matrix, sigma, output=None, mode='reflect', cval=0.0)
-
-        #Save the values of the matrix to the previous format (chanal_id)
-
+        
         # Row 1
         time_step[21] = matrix[1][4]
         time_step[22] = matrix[1][6]
