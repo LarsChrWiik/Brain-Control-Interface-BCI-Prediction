@@ -30,29 +30,21 @@ class Filter:
             data,
             lowFreq: Union[int, float],
             highFreq: Union[int, float],
-            timestep: int = 0,
             samplingFreq: int = 240,
             order: int = 5,
-            eegSensor: int = 0,
             filterType: str = 'bandpass',
-            lengthOfTestSeconds: Union[int, float] = 32,
-            example: int = 0
     ):
         filtered_channels = []
         for example in data["Signal"]:
             examples = []
             for j in range(len(example)):
                 filtered_channel = Filter.__band_filter_sample(
-                    example[j],
-                    lowFreq,
-                    highFreq,
-                    timestep,
-                    samplingFreq,
-                    order,
-                    eegSensor,
-                    filterType,
-                    lengthOfTestSeconds,
-                    example
+                    channel=example[j],
+                    lowFreq=lowFreq,
+                    highFreq=highFreq,
+                    samplingFreq=samplingFreq,
+                    order=order,
+                    filterType=filterType
                 )
                 examples.append(filtered_channel)
             filtered_channels.append(examples)
@@ -64,13 +56,9 @@ class Filter:
             channel,
             lowFreq: Union[int, float],
             highFreq: Union[int, float],
-            timestep: int=0,
             samplingFreq: int=240,
             order: int=5,
-            eegSensor: int=0,
-            filterType: str='bandpass',
-            lengthOfTestSeconds: Union[int, float]=32,
-            example: int=0
+            filterType: str='bandpass'
     ):
         """Bandpass and Notch filter
             Mostly done, still looking at another implementation of Unit Testing using the 'import UnitTest' lib, but this
