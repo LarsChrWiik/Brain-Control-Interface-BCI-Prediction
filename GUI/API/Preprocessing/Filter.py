@@ -92,27 +92,12 @@ class Filter:
             :returns
                 dict: The freqencies with in the bounds of lowFreq & highFreq
             """
-        #Test
-        # Filter.__band_filter_test(data=data, low=lowFreq, high=highFreq, samplingFreq=samplingFreq, order=order,
-        #                           eegSensor=eegSensor, filterType=filterType, lengthOfTestSeconds=lengthOfTestSeconds)
-        #Code
         nyq = 0.5 * samplingFreq
         low = lowFreq / nyq
         high = highFreq / nyq
         b, a = signal.butter(order, [low, high], btype=filterType)
         y = signal.lfilter(b, a, channel)
-        ##Graph - This belongs somewhere else probably.
-        # t = np.linspace(0, len(data), len(data), endpoint=False)
-        # plt.plot(t, y, label='Sensor #' + str(eegSensor) + ' (' + str(lowFreq) + '-' + str(highFreq) + ') Hz')
-        # plt.grid(True)
-        # plt.axis('tight')
-        # plt.xticks(range(10), range(lengthOfTestSeconds)) ##32 seconds per test?
-        # plt.xlabel("Time in Seconds")
-        # plt.legend(loc='upper left')
-        # plt.show()
 
-
-        #Visualization.channelGraph(y[0][0])
         return y
 
     @staticmethod
@@ -128,28 +113,11 @@ class Filter:
             data["Signal"][i] = transposed_back
         return data
 
-    # @staticmethod
-    # def __band_filter_test(data, low, high, samplingFreq, order, eegSensor, filterType, lengthOfTestSeconds):
-        # assert filterType == 'bandstop' or filterType == 'bandpass'
-        # assert eegSensor >= 0 and eegSensor <= 64
-        # assert order >= 0 ##Need to look at max bounds, when it gets over 6 it makes silly graphs, not sure why yet
-        # assert samplingFreq > 1 and type(samplingFreq) == type(int())## maybe low resolution infra-low brain wave study could need it?
-        # assert low >= 0.00001 and low  < 150 #Ask Jossip about max bounds
-        # assert low < high and high > low
-        # assert high >= 0.00001 and high < 150
-        # assert type(data) == dict and data.shape[0] > 0 and len(data.shape) == 2
-        # assert lengthOfTestSeconds > 0.00001
-
     @staticmethod
     # Enhance the difference between two channels.
     def __laplacian_filter_sample(time_step, sigma):
 
-        #Initialise a matrix with only zeroes to represent the positions of sensors
-        #An additional column and row is added to each side
         matrix = np.zeros((13, 12))
-        #data = data[0]  # Needs a for loop through the examples and ? additional dimension
-
-        #Map the values to their respective locations to the previously created zero matrix
 
         # Row 1
         matrix[1][4] = time_step[21]
@@ -235,13 +203,7 @@ class Filter:
         # Row 10
         matrix[10][6] = time_step[63]
 
-
-
-        #filter the matrix using a laplacian gaussian filter
-
         matrix = gl(matrix, sigma, output=None, mode='reflect', cval=0.0)
-
-        #Save the values of the matrix to the previous format (chanal_id)
 
         # Row 1
         time_step[21] = matrix[1][4]
