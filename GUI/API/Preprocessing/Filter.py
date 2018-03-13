@@ -32,11 +32,9 @@ class Filter:
             lowFreq: Union[int, float],
             highFreq: Union[int, float],
             timestep: int = 0,
-            samplingFreq: int = 240,
+            samplingFreq: int=240,
             order: int = 5,
-            eegSensor: int = 0,
             filterType: str = 'bandpass',
-            lengthOfTestSeconds: Union[int, float] = 32,
     ):
         filtered_channels = []
         for example in data["Signal"]:
@@ -46,7 +44,6 @@ class Filter:
                     example[j],
                     lowFreq,
                     highFreq,
-                    timestep,
                     samplingFreq,
                     order
                 )
@@ -77,9 +74,7 @@ class Filter:
                 highFreq (int, float): (Hz) Can not be lower and lowFreq
                 samplingFreq (int): The sampling resolution fo the EEG capture device
                 order (int): How much delay to use when processing the signal. Above 6 tends to go unpredictable
-                eegSensor (int): Has to be between 0-64. I'm not sure if you can get EEG's bigger than 64 sensors
                 filterType (Str): There are 2 types of filters. 'bandpass' & 'bandstop'
-                lengthOfTestSeconds (int, float): this is only used for the graph - not really needed for core functionality.
 
             :returns
                 dict: The freqencies with in the bounds of lowFreq & highFreq
