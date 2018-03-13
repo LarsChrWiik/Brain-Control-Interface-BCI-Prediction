@@ -7,18 +7,6 @@ class Filter:
 
     @staticmethod
     def filter(data_raw: dict, sigma: int=1, verbose=False) -> dict:
-        """Band Filter and Laplace Filter
-        This is the only public function please call all private functions from here.
-        You can call Notch & Band pass filters with selectable bandwidth.
-
-        It would be easy for me to add lowpass and highpass filters as well. if needed?
-
-        Args:
-            data_raw (dict): Has to be 2D??, non-empty, dict type and in the shape of (TimeSteps, EachEEGSensor)
-
-        :returns
-            dict: the filtered signal
-        """
         if verbose: print("band filter")
         data = Filter.__band_filter(data_raw, lowFreq=2, highFreq=70, filterType='bandstop')
         if verbose: print("laplacian filter")
@@ -60,26 +48,6 @@ class Filter:
             order: int=5,
             filterType: str='bandpass'
     ):
-        """Bandpass and Notch filter
-            Mostly done, still looking at another implementation of Unit Testing using the 'import UnitTest' lib, but this
-            will do for now, it is still unit testing just needs to be made neater. The Graph code needs to be put somewhere
-            else. It was only for testing purposes but seems like a nice pre-processing thing.
-
-            Comments in code below for sugestions!
-
-            :args
-                data (dict): Has to be a 2D, non empty, dict type
-                lowFreq (int, float): (Hz) Can not be higher than highFreq
-                highFreq (int, float): (Hz) Can not be lower and lowFreq
-                samplingFreq (int): The sampling resolution fo the EEG capture device
-                order (int): How much delay to use when processing the signal. Above 6 tends to go unpredictable
-                eegSensor (int): Has to be between 0-64. I'm not sure if you can get EEG's bigger than 64 sensors
-                filterType (Str): There are 2 types of filters. 'bandpass' & 'bandstop'
-                lengthOfTestSeconds (int, float): this is only used for the graph - not really needed for core functionality.
-
-            :returns
-                dict: The freqencies with in the bounds of lowFreq & highFreq
-            """
         nyq = 0.5 * samplingFreq
         low = lowFreq / nyq
         high = highFreq / nyq
