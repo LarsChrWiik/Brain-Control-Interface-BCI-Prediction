@@ -15,7 +15,7 @@ Works for both labelled and non-labelled data.
 1-dm = examples
 2-dm = chunks = 156.
 """
-class Chuncker:
+class Chunker:
 
     # Define chunk size.
     sampling_rate = 240
@@ -27,18 +27,18 @@ class Chuncker:
     @staticmethod
     def chunk(data: dict, with_targets):
         if (with_targets):
-            return Chuncker.chunk_train(data)
-        return Chuncker.chunk_test(data)
+            return Chunker.chunk_train(data)
+        return Chunker.chunk_test(data)
 
     # Chunk for train input.
     @staticmethod
     def chunk_train(data: dict):
-        return Chuncker.__chunk(data)
+        return Chunker.__chunk(data)
 
     # Chunk for test input.
     @staticmethod
     def chunk_test(data: dict):
-        return Chuncker.__chunk(data)[0]
+        return Chunker.__chunk(data)[0]
 
 
     """
@@ -65,10 +65,10 @@ class Chuncker:
                 stimulus_example = stimulus_raw[i]
             except:
                 pass
-            chunks, stimulus = Chuncker.__generate_chunks(
+            chunks, stimulus = Chunker.__generate_chunks(
                 signal_raw[i],
                 flashing_raw[i],
-                Chuncker.chunk_size,
+                Chunker.chunk_size,
                 stimulus_example
             )
             examples_all.append(chunks)
@@ -95,7 +95,7 @@ class Chuncker:
                 except:
                     pass
 
-                chunk_sensor = Chuncker.__chunk_sensor(
+                chunk_sensor = Chunker.__chunk_sensor(
                     signal,
                     i,
                     chunk_size

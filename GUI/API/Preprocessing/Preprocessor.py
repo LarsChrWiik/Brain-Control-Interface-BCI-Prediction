@@ -1,7 +1,7 @@
 from sklearn.preprocessing import MinMaxScaler
 
 from API.Preprocessing.Balancer import Balancer
-from API.Preprocessing.Chunker import Chuncker
+from API.Preprocessing.Chunker import Chunker
 from API.Preprocessing.Filter import Filter
 from API.Preprocessing.Formater import Formater
 from API.Preprocessing.PLI import PLI
@@ -39,7 +39,7 @@ class Preprocessor:
         if verbose: print("Started Chunking")
 
         # Chunk the filtered data.
-        X_chunked, Y_chunked = Chuncker.chunk(data=data_filtered, with_targets=with_targets)
+        X_chunked, Y_chunked = Chunker.chunk(data=data_filtered, with_targets=with_targets)
 
         if verbose: print("Started Shrinking")
 
