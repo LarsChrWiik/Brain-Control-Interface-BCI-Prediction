@@ -3,28 +3,26 @@ import numpy as np
 import pyqtgraph as pg
 
 from PyQt5.QtCore import QCoreApplication,QThread
-from PyQt5.QtGui import QIcon, QColor, QFont 
+from PyQt5.QtGui import QIcon, QColor, QFont
 from PyQt5.QtWidgets import QApplication, QWidget, QMainWindow, QPushButton, QAction, QMessageBox, QVBoxLayout, QErrorMessage
-from PyQt5.QtWidgets import QCalendarWidget, QColorDialog, QTextEdit, QFileDialog, QGraphicsView
+from PyQt5.QtWidgets import QCalendarWidget, QColorDialog, QTextEdit, QFileDialog, QGraphicsView, QDialog
 from PyQt5.QtWidgets import QCheckBox, QProgressBar, QComboBox, QLabel, QStyleFactory, QLineEdit, QInputDialog
 from threading import Thread
 from multiprocessing import Pool
 
 from Wrapper import Wrapper
 from Importer import Importer
-#from Visualization import Visualization
 
 # main window inherit from main window
 class Window(QMainWindow):
 
     wrapper = Wrapper()
 
-
     def __init__(self):
         # use super to return parent object
         super(Window, self).__init__()
         self.setGeometry(50, 50, 650, 450)
-        self.setWindowTitle("EEG Brain Scanner")     # to change this file
+        self.setWindowTitle("P300 Predictor")     # to change this file
         self.raw_signal = []
 
 
@@ -35,29 +33,22 @@ class Window(QMainWindow):
         File_Menu_Exit_Button.setStatusTip('Leave The App')
         File_Menu_Exit_Button.triggered.connect(self.close_application)
 
-        #openFile = QAction("&Open File", self)
-        #openFile.setShortcut("Ctrl+O")
-        #openFile.setStatusTip('Open File')
-        #openFile.triggered.connect(self.file_open)
-        
+
         File_Menu_Save_Button = QAction("&Save File", self)
         File_Menu_Save_Button.setShortcut("Ctrl+S")
         File_Menu_Save_Button.setStatusTip('Save File')
         File_Menu_Save_Button.triggered.connect(self.file_save)
 
-        #self.statusBar()
-
         # to add things to menu bar
         mainMenu = self.menuBar()
         # below name is 'File'
         fileMenu = mainMenu.addMenu('&File')
-        fileMenu.addAction(File_Menu_Exit_Button)
-        #fileMenu.addAction(openFile)
         fileMenu.addAction(File_Menu_Save_Button)
-        
+        fileMenu.addAction(File_Menu_Exit_Button)
         self.home()
 
     def home(self):
+
         Function_Train_Button = QPushButton("Train", self)
         Function_Train_Button.clicked.connect(self.file_open)
         Function_Train_Button.resize(191,41)
@@ -69,7 +60,7 @@ class Window(QMainWindow):
         Function_Predict_Button.move(420,150)
 
         Function_Load_Button = QPushButton("Load", self)
-        Function_Load_Button.clicked.connect(self.close_application)
+        #Function_Load_Button.clicked.connect(self.close_application)
         Function_Load_Button.resize(191,41)
         Function_Load_Button.move(420,200)
 
@@ -83,16 +74,16 @@ class Window(QMainWindow):
         Function_Get_Statistics_Button.resize(191, 41)
         Function_Get_Statistics_Button.move(420, 300)
 
-        label_1 = QLabel("Product \n  Name", self)
+        label_1 = QLabel("P300 \nPredictor", self)
         label_1.setFont(QFont("Times", 40, QFont.Bold))
         label_1.resize(321, 201)
         label_1.move(30,30)
 
-        label_3 = QLabel("Version ......", self)
+        label_3 = QLabel("Version 1.10", self)
         label_3.resize(171, 16)
         label_3.move(20, 330)
 
-        label_4 = QLabel("(c) 2018 - ....", self)
+        label_4 = QLabel("(c) 2018", self)
         label_4.resize(171, 16)
         label_4.move(20, 350)
 
@@ -122,67 +113,82 @@ class Window(QMainWindow):
         # only allows mat files to be read in
         filename = QFileDialog.getOpenFileName(self, 'Open File', filter="*.mat")[0]
 
-        # Make sure the user wants to use train.
-        choice = QMessageBox.question(
-            self,
-            'Extract!',
-            "Are you sure you want to train? If you click yes, the training might take long periods to train",
-            QMessageBox.Yes | QMessageBox.No
-        )
+        if filename:
 
-        if choice == QMessageBox.Yes:
-            # User wants to train.
-            raw_data = Importer.mat(filename)
+            # Make sure the user wants to use train.
+            choice = QMessageBox.question(
+              self,
+               'Train',
+               "Are you sure you want to train? If you click yes, the training might take long periods to train.",
+               QMessageBox.Yes | QMessageBox.No
+            )
 
-            self.wrapper.train(data_raw=raw_data, shrink_percent=0.75, verbose=True)
 
-            # Statistics obtained from the data
-            global raw_signal
-            global filtered_signal
-            global chunked_X
-            global chunked_Y
-            raw_signal = self.wrapper.bciObject.preprocessor.preprocess_statistics.raw_signal
-            filtered_signal = self.wrapper.bciObject.preprocessor.preprocess_statistics.filtered_signal
-            chunked_X = self.wrapper.bciObject.preprocessor.preprocess_statistics.chunked_X
-            chunked_Y = self.wrapper.bciObject.preprocessor.preprocess_statistics.chunked_Y
+            if choice == QMessageBox.Yes:
+             # User wants to train.
+                raw_data = Importer.mat(filename)
 
-        else:
-            # User don't want to train.
-            pass
+                self.wrapper.train(data_raw=raw_data, shrink_percent=0.75, verbose=True)
+
+                # Statistics obtained from the data
+                global raw_signal
+                global filtered_signal
+                global chunked_X
+                global chunked_Y
+                global accuracy
+                raw_signal = self.wrapper.bciObject.preprocessor.preprocess_statistics.raw_signal
+                filtered_signal = self.wrapper.bciObject.preprocessor.preprocess_statistics.filtered_signal
+                chunked_X = self.wrapper.bciObject.preprocessor.preprocess_statistics.chunked_X
+                chunked_Y = self.wrapper.bciObject.preprocessor.preprocess_statistics.chunked_Y
+                accuracy = self.wrapper.bciObject.prediction_model.model_statistics.accuracy
+                #print(accuracy)
+
+                msg = QMessageBox(self)
+                msg.resize(500, 400)
+                msg.setText("The training accuracy is %.3f" % accuracy)
+                msg.show()
+
+            else:
+                # User don't want to train.
+                pass
+
 
     def predict(self):
         # Let the user chose a file.
         # only allows mat files to be read in
         filename = QFileDialog.getOpenFileName(self, 'Open File', filter="*.mat")[0]
 
-        # Make sure the user wants to use train.
-        choice = QMessageBox.question(
-            self,
-            'Extract!',
-            "Are you sure you want to run prediction?",
-            QMessageBox.Yes | QMessageBox.No
-        )
+        if filename:
 
-        if choice == QMessageBox.Yes:
-            # User wants to train.
-            raw_data = Importer.mat(filename)
+            # Make sure the user wants to use train.
+            choice = QMessageBox.question(
+                 self,
+                'Extract!',
+                "Are you sure you want to run prediction? If you click yes, the prediction might take a long time to run",
+                QMessageBox.Yes | QMessageBox.No
+            )
 
-            self.wrapper.predict(raw_data, verbose=True)
+            if choice == QMessageBox.Yes:
+                # User wants to train.
+                raw_data = Importer.mat(filename)
 
-        else:
-            # User don't want to train.
-            pass
+                self.wrapper.predict(raw_data, verbose=True)
+
+            else:
+                # User don't want to train.
+                pass
+
+
 
     def generate_graph(self):
         # Check if variable is empty
         try:
             raw_signal
         except NameError:
-            #print("well, it WASN'T defined after all!")
             msg = QMessageBox()
-            msg.setIcon(QMessageBox.Critical)
+            msg.setIcon(QMessageBox.Warning)
             msg.setText("Error")
-            msg.setInformativeText("well, it WASN'T defined after all!")
+            #msg.setInformativeText("No statistics found! Please run the training function button to generate statistics for the graph.")
             msg.setWindowTitle("Error")
         else:
             print("Generating Statistics Now")
@@ -225,23 +231,12 @@ class Window(QMainWindow):
         file.write(text)
         file.close()
 
-    #def editor(self):
-    #    self.textEdit = QtGui.QTextEdit()
-    #    self.setCentralWidget(self.textEdit)
-
-    def download(self):
-        self.completed = 0
-
-        while self.completed < 100:
-            self.completed += 0.0001
-            self.progress.setValue(self.completed)
-
     def color_picker(self):
         color = QColorDialog.getColor()
         self.styleChoice.setStyleSheet("QWidget { background-color: %s}" % color.name())
 
     def close_application(self):
-        choice = QMessageBox.question(self, 'Extract!',
+        choice = QMessageBox.question(self, 'Exit!',
                                             "Are you sure you want to exit?",
                                             QMessageBox.Yes | QMessageBox.No)
         if choice == QMessageBox.Yes:
