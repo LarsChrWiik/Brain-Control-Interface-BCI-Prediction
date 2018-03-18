@@ -24,6 +24,11 @@ class Chucker:
     timestep_ms_ratio = ms / sampling_rate
     chunk_size = int(p300_time * timestep_ms_ratio)
 
+    @staticmethod
+    def chunk(data: dict, with_targets):
+        if (with_targets):
+            return Chucker.chunk_train(data)
+        return Chucker.chunk_test(data)
 
     # Chunk for train input.
     @staticmethod
