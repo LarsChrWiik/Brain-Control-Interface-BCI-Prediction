@@ -39,7 +39,7 @@ class Preprocessor:
         if verbose: print("Started Chunking")
 
         # Chunk the filtered data.
-        X_chunked, Y_chunked = Chucker.chunk_train(data_filtered)
+        X_chunked, Y_chunked = Chucker.chunk(data=data_filtered, with_targets=with_targets)
 
         if verbose: print("Started Shrinking")
 
