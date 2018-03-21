@@ -12,7 +12,6 @@ If this pattern exists it could open up a new avenue of investigation and resear
 This graph shows unprocessed signal data for a single example 
 
 ![logo](./Diagrams/Raw_data.jpg?raw=true)
-
 ### Filtered Data
 
 This graph shows the signal data after undergoing bandpass and Laplacian filtering for a single example.
