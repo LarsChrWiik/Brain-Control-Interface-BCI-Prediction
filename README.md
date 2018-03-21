@@ -30,7 +30,7 @@ This graph shows a single window of 300 milliseconds after the occurance of a fl
 The highest average accuracy on a balanced training set using cross validation was achieved using KNN.
 The picture below shows the results obtained using that classifier.
 
-![logo](./KNN.jpg?raw=true)
+![logo](./KNN.JPG?raw=true)
      
 
 
