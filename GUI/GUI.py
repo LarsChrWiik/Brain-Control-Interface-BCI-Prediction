@@ -50,7 +50,7 @@ class Window(QMainWindow):
     def home(self):
 
         Function_Train_Button = QPushButton("Train", self)
-        Function_Train_Button.clicked.connect(self.file_open)
+        Function_Train_Button.clicked.connect(self.train)
         Function_Train_Button.resize(191,41)
         Function_Train_Button.move(420,100)
 
@@ -108,7 +108,7 @@ class Window(QMainWindow):
         self.wrapper.train(saved_file)
         return
 
-    def file_open(self):
+    def train(self):
         # Let the user chose a file.
         # only allows mat files to be read in
         filename = QFileDialog.getOpenFileName(self, 'Open File', filter="*.mat")[0]
@@ -125,10 +125,14 @@ class Window(QMainWindow):
 
 
             if choice == QMessageBox.Yes:
-             # User wants to train.
+                # User wants to train.
                 raw_data = Importer.mat(filename)
 
-                self.wrapper.train(data_raw=raw_data, shrink_percent=0.75, verbose=True)
+                # Make data_raw smaller. (Should be removed in future versions).
+                for row in raw_data:
+                    raw_data[row] = raw_data[row][:1]
+
+                self.wrapper.train(data_raw=raw_data, shrink_percent=0.0, verbose=True)
 
                 # Statistics obtained from the data
                 global raw_signal
@@ -170,7 +174,6 @@ class Window(QMainWindow):
 
             if choice == QMessageBox.Yes:
                 # User wants to train.
-                raw_data = Importer.mat(filename)
                 raw_data = Importer.mat(filename)
 
                 # Make data_raw smaller. (Should be removed in future versions).
