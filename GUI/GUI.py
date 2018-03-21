@@ -37,7 +37,7 @@ class Window(QMainWindow):
         File_Menu_Save_Button = QAction("&Save File", self)
         File_Menu_Save_Button.setShortcut("Ctrl+S")
         File_Menu_Save_Button.setStatusTip('Save File')
-        File_Menu_Save_Button.triggered.connect(self.file_save)
+        #File_Menu_Save_Button.triggered.connect(self.file_save)
 
         # to add things to menu bar
         mainMenu = self.menuBar()
