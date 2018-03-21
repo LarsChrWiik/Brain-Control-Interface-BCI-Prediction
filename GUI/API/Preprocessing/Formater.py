@@ -27,7 +27,7 @@ class Formater:
     Usable for both training and test data.
     """
     @staticmethod
-    def format(X, Y):
+    def format(X, Y, with_targets):
 
         X_new = []
         Y_new = []
@@ -38,7 +38,7 @@ class Formater:
                 for k in range(len(X[i][j])):
                     # Sensor
                     X_new.append(X[i][j][k])
-                    if Y is not None:
+                    if with_targets:
                         Y_new.append(Y[i][j])
         if Y is None:
             return X_new

@@ -38,7 +38,7 @@ class Chunker:
     # Chunk for test input.
     @staticmethod
     def chunk_test(data: dict):
-        return Chunker.__chunk(data)[0]
+        return Chunker.__chunk(data)
 
 
     """

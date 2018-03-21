@@ -65,7 +65,7 @@ class Window(QMainWindow):
         Function_Load_Button.move(420,200)
 
         Function_Save_Button = QPushButton("Save", self)
-        Function_Save_Button.clicked.connect(self.close_application)
+        #Function_Save_Button.clicked.connect(self.close_application)
         Function_Save_Button.resize(191,41)
         Function_Save_Button.move(420,250)
 
@@ -171,10 +171,7 @@ class Window(QMainWindow):
             if choice == QMessageBox.Yes:
                 # User wants to train.
                 raw_data = Importer.mat(filename)
-
-                # Make data_raw smaller.
-                for row in raw_data:
-                    raw_data[row] = raw_data[row][:1]
+                raw_data = Importer.mat(filename)
 
                 prediction = self.wrapper.predict(raw_data, verbose=True)
                 print(prediction)

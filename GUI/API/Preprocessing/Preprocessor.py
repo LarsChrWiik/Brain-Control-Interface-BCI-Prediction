@@ -67,7 +67,7 @@ class Preprocessor:
         if verbose: print("Started Formating")
 
         # Format the data into a usable format for classifiers.
-        X, Y = Formater.format(X, Y)
+        X, Y = Formater.format(X, Y, with_targets)
 
         if verbose: print("Started MinMaxScaler")
 
