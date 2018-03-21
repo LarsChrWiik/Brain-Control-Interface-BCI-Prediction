@@ -172,7 +172,12 @@ class Window(QMainWindow):
                 # User wants to train.
                 raw_data = Importer.mat(filename)
 
-                self.wrapper.predict(raw_data, verbose=True)
+                # Make data_raw smaller.
+                for row in raw_data:
+                    raw_data[row] = raw_data[row][:1]
+
+                prediction = self.wrapper.predict(raw_data, verbose=True)
+                print(prediction)
 
             else:
                 # User don't want to train.
