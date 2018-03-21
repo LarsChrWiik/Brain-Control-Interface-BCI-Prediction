@@ -1,47 +1,47 @@
-# Lab2 Answer
+# CE903-group6
 
-## What has been done
+## Purpose
 
-An analysis of a vehicle fleet replacement plan for a company is presented. The data is MPG of some of their cars and the potential replacements. 
+The main purpose of this study is to perform a binary classification of **P300 occurrence** based upon _prior_ _signals_.
+The two classifications available are: P300 will occur, P300 will not occur.
+By using a portion of a P300 signal before its occurrence, it could be possible for a classifier to interpret a pattern which might be transferable between subjects.
+If this pattern exists it could open up a new avenue of investigation and research about how we look at the P300 wave.
 
-The data has been analysed and different plotting have been created. The analysis includes standard deviation and bootstrapping. 
+### Raw Signal Data
 
+This graph shows unprocessed signal data for a single example 
 
-## Histogram and Scaterplot
+![logo](./Diagrams/raw_data.jpg?raw=true)
 
-Histogram of current fleet
+### Filtered Data
 
-![logo](./Diagrams/histogram_current_fleet.png?raw=true)
+This graph shows the signal data after undergoing bandpass and Laplacian filtering for a single example.
 
-Histogram of proposed fleet
+![logo](./Diagrams/filtered.jpg?raw=true)
 
-![logo](./Diagrams/histogram_proposed_fleet.png?raw=true)
+### Chunked Data
 
-Scaterplot
+This graph shows a single window of 300 milliseconds after the occurance of a flashing signal.
 
-![logo](./Diagrams/scaterplot.png?raw=true)
+![logo](./Diagrams/chunked.jpg?raw=true)
 
-## Standard deviation comparison via the boostrap
+## Results
 
-### Current fleet
+The highest average accuracy on a balanced training set using cross validation was achieved using KNN.
+The picture below shows the results obtained using that classifier.
 
-Standard deviation:
-- upper = 6.950073968587861
-- std-mean = 6.401805462179708
-- lower = 5.808888915480925
-
-Mean:
-- mean = 20.14457831325301
-
-### Proposed fleet
-
-Standard deviation:
-- upper = 6.897914239562367
-- std-mean = 6.068930545150857
-- lower = 5.139403406065087
-
-Mean:
-- mean = 30.481012658227847
+![logo](./Diagrams/knn.jpg?raw=true)
+     
 
 
-By Lars Wiik.
+## Future work
+
+Future work includes conducting a study to test if the system is transferable between two separate subjects.
+One example would be to train a classifier on one participant and predict P300 occurrences using brain waves from another participant.
+This could be further extended by training a system on a much larger sample group. 
+
+Future works also includes extending the current implementation to participate in BCI competitions, as the system currently doesn’t predict the type of P300, just that it will occur.
+The standard approach uses an assumption of a gaussian distribution around 300 ms after a flashing signal, this window containing the given data is then used for a prediction.
+As opposed to the previously mentioned method, this study attempts to predict the P300 signal using data from the flashing signal to 300 milliseconds after its occurrence.
+The end goal was to evaluate the classification accuracy by using the previously mentioned interval, additional adaptation would be required to make it applicable for a BCI competition.
+If these modification were made the system could be tested against the results of the BCI competition as a way of validating the system performance. 
