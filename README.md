@@ -11,26 +11,26 @@ If this pattern exists it could open up a new avenue of investigation and resear
 
 This graph shows unprocessed signal data for a single example 
 
-![logo](./Diagrams/raw_data.jpg?raw=true)
+![logo](./Diagrams/Raw_data.jpg?raw=true)
 
 ### Filtered Data
 
 This graph shows the signal data after undergoing bandpass and Laplacian filtering for a single example.
 
-![logo](./Diagrams/filtered.jpg?raw=true)
+![logo](./Diagrams/Filtered.jpg?raw=true)
 
 ### Chunked Data
 
 This graph shows a single window of 300 milliseconds after the occurance of a flashing signal.
 
-![logo](./Diagrams/chunked.jpg?raw=true)
+![logo](./Diagrams/Chunked.jpg?raw=true)
 
 ## Results
 
 The highest average accuracy on a balanced training set using cross validation was achieved using KNN.
 The picture below shows the results obtained using that classifier.
 
-![logo](./Diagrams/knn.jpg?raw=true)
+![logo](./Diagrams/KNN.jpg?raw=true)
      
 
 
