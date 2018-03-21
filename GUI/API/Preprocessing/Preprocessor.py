@@ -78,9 +78,10 @@ class Preprocessor:
 
         self.preprocess_statistics.fill(
             raw_data=data_raw,
-            filtered_data = data_filtered,
-            chunked_X = X_chunked,
-            chunked_Y = Y_chunked
+            filtered_data=data_filtered,
+            chunked_X=X_chunked,
+            chunked_Y=Y_chunked,
+            with_targets=with_targets
         )
 
         if with_targets:

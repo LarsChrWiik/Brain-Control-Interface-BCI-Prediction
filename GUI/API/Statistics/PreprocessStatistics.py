@@ -41,7 +41,7 @@ class PreprocessStatistics:
     """
     Updating the pre-processing statistics. 
     """
-    def fill(self, raw_data, filtered_data, chunked_X, chunked_Y):
+    def fill(self, raw_data, filtered_data, chunked_X, chunked_Y, with_targets):
         # Choosing statistics.
 
         # RAW_DATA
@@ -49,7 +49,8 @@ class PreprocessStatistics:
         self.filtered_signal = filtered_data["Signal"]
 
         # Randomize
-        chunked_X, chunked_Y = Randomizer.shuffle_two_lists(chunked_X[0], chunked_Y[0])
+        if with_targets:
+            chunked_X, chunked_Y = Randomizer.shuffle_two_lists(chunked_X[0], chunked_Y[0])
         self.chunked_X = chunked_X[:self.number_of_chunks]
         self.chunked_Y = chunked_Y[:self.number_of_chunks]
 
