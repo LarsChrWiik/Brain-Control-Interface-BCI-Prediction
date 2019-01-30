@@ -1,4 +1,4 @@
-# CE903-group6
+# Brain Control Interface (BCI) Predict P300 Signals
 
 ## Purpose
 
